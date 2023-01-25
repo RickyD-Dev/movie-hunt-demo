@@ -1,0 +1,206 @@
+<script>
+    export let data;
+    $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay } = data);
+
+    $: activePage = parseInt(theCurrentPage);
+</script>
+
+<div class="search_bar_container">
+    <form method="POST" action="?/search" class="" autocomplete="off">
+        <input type="text" name="search" id="search" class="search_input" placeholder="Search Titles" value={`${currentSearch}`} required>
+    </form>
+
+    <p class="results_for_text">Results for: "{currentSearch}"</p>
+</div>
+
+<div class="movies_container">
+    <ul class="movies_list">
+        {#await userSearchData}
+            <p>Loading...</p>
+        {:then userSearchData}
+            {#each userSearchData as entry}
+                <li class="movie_posters">
+                    <a href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
+                        {#if entry.poster_path === null}
+                            <p class="if_poster_unavailable"><em>Image Unavailable</em></p>
+                            <p class="if_poster_unavailable">{entry.title}</p>
+                        {:else}
+                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{entry.poster_path}" alt="{entry.title} movie poster">
+                        {/if}
+                    </a>
+                </li>
+            {/each}
+        {/await}
+    </ul>
+    <div class="pages_list">
+        <!-- <p>Total results: {totalResults}</p> -->
+        <p>Page {theCurrentPage} out of {allPages}</p>
+    </div>
+    <div class="pagination_container">
+        <!-- PAGINATION SECTION -->
+        <ul class="pagination_list">
+            <li>
+                <a class="page_item" href={`/search/${currentSearch}&page=1`}>First</a>
+            </li>
+            <li>
+                {#if activePage === 1}
+                    <a class="inactive" href={`/search/${currentSearch}&page=1`}>&#60;</a>
+                {:else if activePage > 1}
+                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage-1}`}>&#60;</a>
+                {/if}
+            </li>
+            {#each resultsToDisplay as page}
+                {#if page === activePage}
+                    <li>
+                        <a class="active" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
+                    </li>
+                {:else}
+                    <li>
+                        <a class="page_item" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
+                    </li>
+                {/if}
+            {/each}
+            <li>
+                {#if activePage === allPages}
+                    <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>&gt;</a>
+                {:else if activePage < allPages}
+                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage+1}`}>&gt;</a>
+                {/if}
+            </li>
+            <li>
+                <a class="page_item" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .search_bar_container {
+        /* border: 1px solid green; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 15px;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    form {
+        /* border: 2px solid red; */
+        width: 100%;
+        height: 50px;
+    }
+
+    .search_input {
+        background-color: transparent;
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-bottom: 1px solid #2cbfc9;
+        font-size: 22px;
+        font-weight: 200;
+    }
+
+    .search_input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .search_input:focus-visible {
+        outline: none;
+        caret-color: #fff;
+    }
+
+    .results_for_text {
+        display: flex;
+        padding-top: 10px;
+        font-size: 18px;
+        align-self: flex-start;
+    }
+
+    .movies_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 2.5rem;
+    }
+
+    .movies_list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
+        justify-items: center;
+        gap: 10px;
+        width: 100%;
+        align-items: center;
+        padding: 10px 15px;
+    }
+
+    .movie_posters {
+        width: 100%;
+        height: 100%;
+        max-width: 285px;
+        max-height: 432px;
+        border: 1px solid #2cbfc9;
+    }
+
+    .movie_poster_image {
+        width: 100%;
+        object-fit: cover;
+        height: 100%;
+        max-height: 432px;
+    }
+
+    .if_poster_unavailable {
+        padding: 5px 0px;
+        text-align: center;
+    }
+
+    .pages_list {
+        padding: 20px 0px 0px;
+    }
+
+    .pagination_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 520px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .pagination_list {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .page_item {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .page_item:hover {
+        background-color: rgba(44, 191, 201, 0.3);
+    }
+
+    .active {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        width: 100%;
+        background-color: #2cbfc9;
+        cursor: pointer;
+        color: #000;
+    }
+
+    .inactive {
+        display: none;
+    }
+</style>

@@ -1,0 +1,58 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* :focus {
+	outline:none !important
+} */
+
+html,
+body {
+	font-family: 'Overpass', sans-serif;
+	font-weight: 200;
+	height: 100%;
+	background-color: #000315;
+	color: #fff;
+}
+
+.main_container {
+	position: relative;
+	min-height: 100vh;
+}
+
+h4 {
+	font-size: 1.58em;
+	font-weight: 200;
+	text-decoration: underline;
+    text-decoration-color: #2cbfc9;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+a:active {
+	text-decoration: none;
+	color: #fff;
+}
+
+a:focus {
+    color:#fff;
+}
+
+a:visited {
+    color:#fff;
+}
+
+a:link {
+    color:#fff;
+}

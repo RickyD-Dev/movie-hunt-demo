@@ -1,2 +1,52 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div class="home-main-container">
+    <h1 class="home-title">Find out where your favorite movies are playing.</h1>
+
+    <div class="explore-button-container">
+        <a class="explore-link" href="/genre">Explore</a>
+    </div>
+</div>
+
+<style>
+    .home-main-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 50px;
+    }
+
+    .home-title {
+        padding: 40px 16px;
+        font-size: 34px;
+        font-weight: 300;
+        text-align: center;
+    }
+
+    .explore-button-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding-top: 20px;
+    }
+
+    .explore-link {
+        background-color: #000315;
+        color: #fff;
+        border: 1px solid #2cbfc9;
+        font-size: 18px;
+        font-weight: 200;
+        width: 80%;
+        max-width: 360px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 150ms ease-in-out;
+    }
+
+    .explore-link:hover {
+        background-color: rgba(44, 191, 201, 0.2);
+    }
+</style>
