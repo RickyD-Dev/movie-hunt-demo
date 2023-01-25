@@ -41,7 +41,7 @@ export async function load({ params, fetch }) {
 
     const currentSearchQuery = userSearchQuery;
 
-    const maxAmountofPages = 6;
+    const maxAmountofPages = 4;
     let currentPageIndex = 0;
     let upperPageIndex = maxAmountofPages;
 
@@ -52,8 +52,8 @@ export async function load({ params, fetch }) {
 
     resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-    if (searchData.total_pages >= 7 && currentPageIndex > (searchData.total_pages - 7)) {
-        resultsToDisplay = rangeOfPages.slice((searchData.total_pages-7), upperPageIndex);
+    if (searchData.total_pages >= 5 && currentPageIndex > (searchData.total_pages - 5)) {
+        resultsToDisplay = rangeOfPages.slice((searchData.total_pages-5), upperPageIndex);
     }
 
     return {

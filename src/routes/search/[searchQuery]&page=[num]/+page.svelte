@@ -183,12 +183,13 @@
         width: 100%;
         display: flex;
         justify-content: center;
+        gap: 3px;
     }
 
     .page_item {
         display: flex;
         justify-content: center;
-        padding: 10px;
+        padding: 8px;
         width: 100%;
         cursor: pointer;
     }
@@ -200,7 +201,7 @@
     .active {
         display: flex;
         justify-content: center;
-        padding: 10px;
+        padding: 8px;
         width: 100%;
         background-color: #2cbfc9;
         cursor: pointer;

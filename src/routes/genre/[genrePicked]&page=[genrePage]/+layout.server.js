@@ -16,7 +16,7 @@ export async function load({ fetch, params }) {
 
     const rangeOfPages = Array.from({length: 500}, (x, i) => i+pageStart);
 
-    const maxAmountofPages = 6;
+    const maxAmountofPages = 4;
     let currentPageIndex = 0;
     let upperPageIndex = maxAmountofPages;
 
@@ -27,8 +27,8 @@ export async function load({ fetch, params }) {
 
     resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-    if (data.total_pages >= 7 && currentPageIndex > (500 - 7)) {
-        resultsToDisplay = rangeOfPages.slice((500-7), upperPageIndex);
+    if (data.total_pages >= 5 && currentPageIndex > (500 - 5)) {
+        resultsToDisplay = rangeOfPages.slice((500-5), upperPageIndex);
     }
 
     return {
