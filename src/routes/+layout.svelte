@@ -1,7 +1,27 @@
+<script>
+    import { page } from '$app/stores';
+</script>
+
 <header>
     <div class="header-container">
         <div class="logo-container">
             <h1 class="logo-text"><a href="/">Movie Hunt</a></h1>
+        </div>
+
+        <div class={$page.url.pathname.includes("/genre") || $page.url.pathname.includes("/search") ? "nav-header-container" : "nav-off"}>
+            <div class="nav-container">
+                <nav>
+                    <ul class="nav-list">
+                        {#if $page.url.pathname.includes("/genre")}
+                            <li class="nav-item genres selected"><a href="/genre">Genres</a></li>
+                            <li class="nav-item search"><a href="/search">Search</a></li>
+                        {:else if $page.url.pathname.includes("/search")}
+                            <li class="nav-item genres"><a href="/genre">Genres</a></li>
+                            <li class="nav-item search selected"><a href="/search">Search</a></li>
+                        {/if}
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </header>
@@ -10,18 +30,23 @@
 
 <footer class="footer_container">
     <div class="copyright_coffee_container">
-        <p class="copyright_text">&copy; 2023 Ricardo Delgado</p>
-        <a href="https://www.buymeacoffee.com/rickydlgd" title="Buy Rick a Coffee (:" target="_blank" rel="noreferrer"><i class="fa-solid fa-mug-hot"></i></a>
+        <p class="copyright_text">&copy; 2023 Movie Hunt</p>
+        <a class="coffee_a" href="https://www.buymeacoffee.com/rickydlgd" title="Buy Rick a Coffee (:" target="_blank" rel="noreferrer"><i class="fa-solid fa-mug-hot"></i></a>
     </div>
     <div class="attribution_container">
         <p class="attribution_text">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
-        <a href="https://www.themoviedb.org/">
+        <a class="tmdb_logo_a" href="https://www.themoviedb.org/">
             <img class="tmdb_logo" src="/images/tmdb_logo2.svg" alt="">
         </a>
     </div>
+    <p class="created_by">Created by Ricardo Delgado</p>
 </footer>
 
 <style>
+    header {
+        width: 100%;
+    }
+
     .header-container {
         display: flex;
         position: relative;
@@ -64,6 +89,57 @@
         animation: pulsate 0.9s ease-in-out infinite alternate;
     }
 
+    /* ---------- Genre/Search Header Styles ---------- */
+
+    .nav-header-container {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 850px;
+        padding: 10px 0px;
+        margin-bottom: 20px;
+        z-index: 2;
+    }
+
+    .nav-off {
+        display: none;
+    }
+
+    .nav-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+
+    }
+
+    .nav-item {
+        cursor: pointer;
+        font-size: 1.35em;
+    }
+
+    .nav-item a:hover {
+        color: #2cbfc9;
+    }
+
+    .selected a {
+        text-decoration: underline;
+        text-decoration-color: #2cbfc9;
+    }
+
+    .selected a:hover {
+        text-decoration-color: #fff;
+    }
+
     .footer_container {
         /* border-top: 1px solid rgba(243, 243, 243, 0.6); */
         border-top: 1px solid #20DCE8;
@@ -72,8 +148,9 @@
         align-items: center;
         justify-content: center;
         padding: 12px 16px;
-        position: absolute;
-        bottom: 0;
+        /* position: absolute; */
+        /* bottom: 0; */
+        position: relative;
         width: 100%;
         /* height: 4rem; */
     }
@@ -90,7 +167,14 @@
 
     .copyright_text {
         font-size: 10px;
+        width: 100%;
+        text-align: center;
         /* padding-bottom: 10px; */
+    }
+
+    .coffee_a {
+        width: 100%;
+        text-align: center;
     }
 
     .fa-solid {
@@ -99,16 +183,23 @@
 
     .attribution_container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         gap: 0px 20px;
         align-items: center;
         width: 100%;
         max-width: 375px;
+        padding-bottom: 15px;
     }
 
     .attribution_text {
         font-size: 10px;
-        width: 180px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .tmdb_logo_a {
+        width: 100%;
+        text-align: center;
     }
 
     .tmdb_logo {
@@ -116,5 +207,9 @@
         width: 100%;
         height: 100%;
         max-width: 80px;
+    }
+
+    .created_by {
+        font-size: 10px;
     }
 </style>

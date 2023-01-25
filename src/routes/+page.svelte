@@ -4,15 +4,23 @@
     <div class="explore-button-container">
         <a class="explore-link" href="/genre">Explore</a>
     </div>
+    <div class="test_div"></div>
 </div>
 
 <style>
+    /* .test_div {
+        border: 1px solid red;
+        width: 100%;
+        height: 100%;
+    } */
+
     .home-main-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-top: 50px;
+        padding-bottom: 10rem;
+        width: 100%;
     }
 
     .home-title {

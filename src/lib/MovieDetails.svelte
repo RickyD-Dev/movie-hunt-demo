@@ -136,7 +136,7 @@
         width: 100%;
         position: relative;
         bottom: 60px;
-        padding: 0px 15px 4.5rem;
+        padding: 0px 15px;
     }
 
     .movie_details_container_search {
@@ -146,7 +146,7 @@
         align-items: center;
         width: 100%;
         position: relative;
-        padding: 0px 15px 8rem;
+        padding: 0px 15px 2.5rem;
     }
 
     .button_image_container {

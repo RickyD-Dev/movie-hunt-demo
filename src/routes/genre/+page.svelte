@@ -16,7 +16,7 @@
 
 <style>
     .genre-container {
-        padding: 0px 16px 6.5rem;
+        padding: 0px 16px 2.5rem;
     }
 
     .genre-item {

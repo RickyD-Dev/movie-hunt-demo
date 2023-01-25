@@ -136,6 +136,13 @@
         width: 100%;
         align-items: center;
         padding: 10px 15px;
+        max-width: 1180px;
+    }
+
+    @media screen and (min-width: 660px) and (orientation: landscape) {
+        .movies_list {
+            grid-template-columns: repeat(4, 1fr);
+        }
     }
 
     .movie_posters {

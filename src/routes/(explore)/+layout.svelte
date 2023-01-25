@@ -2,7 +2,7 @@
     import { page } from '$app/stores';
 </script>
 
-<header>
+<!-- <header>
     <div class="header-container">
         <div class="nav-container">
             <nav>
@@ -18,7 +18,7 @@
             </nav>
         </div>
     </div>
-</header>
+</header> -->
 
 <slot></slot>
 
@@ -30,6 +30,7 @@
         justify-content: center;
         align-items: center;
         width: 100%;
+        max-width: 850px;
         padding: 10px 0px;
         margin-bottom: 20px;
         z-index: 2;
