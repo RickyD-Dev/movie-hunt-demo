@@ -1,5 +1,5 @@
 <div class="search_bar_container">
-    <form method="POST" action="?/search" class="" autocomplete="off">
+    <form method="POST" action="?/search" autocomplete="off">
         <input type="text" name="search" id="search" class="search_input" placeholder="Search Titles" required>
     </form>
 </div>
@@ -16,6 +16,7 @@
     }
 
     form {
+        border-bottom: 1px solid #2cbfc9;
         width: 100%;
         height: 50px;
     }
@@ -26,7 +27,6 @@
         width: 100%;
         height: 100%;
         border: none;
-        border-bottom: 1px solid #2cbfc9;
         font-size: 22px;
         font-weight: 200;
     }
