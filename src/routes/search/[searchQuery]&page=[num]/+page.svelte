@@ -86,7 +86,7 @@
                 {/if}
             </li>
             <li>
-                {#if activePage === 500}
+                {#if activePage === 500 || activePage === allPages}
                     <a class="inactive" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
                 {:else}
                     <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
