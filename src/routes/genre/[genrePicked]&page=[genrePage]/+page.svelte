@@ -5,42 +5,30 @@
     $: ({ genreOfChoice, genreName, theCurrentPage, allPages, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
-
-    async function fetchPoster(posterPath) {
-        const posterFetch = await fetch (`http://image.tmdb.org/t/p/w500${posterPath}`);
-
-        if (posterFetch.ok) {
-            return posterFetch.url;
-        } else {
-            throw new Error(posterFetch);
-        }
-    };
 </script>
 
 <div class="genre_movies_container">
     <ul class="genre_movies_list">
-        {#await genreOfChoice then choice}
-            {#each choice as movie}
-                <li class="movie_posters" in:fly="{{ y:100, duration: 1000 }}">
-                    {#await fetchPoster(movie.poster_path)}
-                        <div class="image_unavailable_container">
-                            <p>Loading...</p>
-                        </div>
-                    {:then poster}
-                        <a href={`/genre/${genreName}&page=1/details/${movie.id}`}>
-                            {#if movie.poster_path === null}
-                                <div class="image_unavailable_container">
-                                    <p><em>Image Unavailable</em></p>
-                                    <p>{movie.title}</p>
-                                </div>
-                            {:else}
-                                    <img class="movie_poster_image" src={poster} alt="{movie.title} movie poster">
-                            {/if}
-                        </a>
-                    {/await}
-                </li>
-            {/each}
-        {/await}
+        {#each genreOfChoice as movie}
+            <li class="movie_posters" in:fly="{{ y:100, duration: 1000 }}">
+                {#await data}
+                    <div class="image_unavailable_container">
+                        <p>Loading...</p>
+                    </div>
+                {:then}
+                    <a href={`/genre/${genreName}&page=1/details/${movie.id}`}>
+                        {#if movie.poster_path === null}
+                            <div class="image_unavailable_container">
+                                <p><em>Image Unavailable</em></p>
+                                <p>{movie.title}</p>
+                            </div>
+                        {:else}
+                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{movie.poster_path}" alt="{movie.title} movie poster">
+                        {/if}
+                    </a>
+                {/await}
+            </li>
+        {/each}
     </ul>
 
     <div class="pages_list">
