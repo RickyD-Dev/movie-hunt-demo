@@ -26,7 +26,7 @@
                         <p>Loading...</p>
                     </div>
                 {:then poster}
-                    <a data-sveltekit-preload-data="tap" href={`/genre/${genreName}&page=1/details/${movie.id}`}>
+                    <a href={`/genre/${genreName}&page=1/details/${movie.id}`}>
                         {#if movie.poster_path === null}
                             <div class="image_unavailable_container">
                                 <p><em>Image Unavailable</em></p>
