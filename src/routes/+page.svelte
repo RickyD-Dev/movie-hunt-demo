@@ -42,7 +42,8 @@
     .explore-link {
         background-color: #000315;
         color: #fff;
-        border: 1px solid #2cbfc9;
+        border: 3px solid rgba(44, 191, 201, 0.8);
+        border-radius: 50px;
         font-size: 18px;
         font-weight: 200;
         width: 80%;
