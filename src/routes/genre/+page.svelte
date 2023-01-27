@@ -23,13 +23,6 @@
         padding: 0px 25px 2.5rem;
     }
 
-    /* .genre_list {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        max-width: 500px;
-    } */
-
     .genre_list {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
