@@ -22,14 +22,14 @@ export async function load({ params, fetch }) {
 
         const fetchedSearch = searchData.results;
 
-        const filteredFetchedSearch = (arr) => {
-            const required = arr.filter(el => {
-                return el.poster_path;
-            });
-            return required;
-        };
+        // const filteredFetchedSearch = (arr) => {
+        //     const required = arr.filter(el => {
+        //         return el.poster_path;
+        //     });
+        //     return required;
+        // };
 
-        const newSearch = filteredFetchedSearch(fetchedSearch);
+        // const newSearch = filteredFetchedSearch(fetchedSearch);
 
         const searchCurrentPage = searchData.page.toString();
         const searchAllPages = searchData.total_pages.toString();
@@ -53,12 +53,12 @@ export async function load({ params, fetch }) {
 
         resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-        if (searchData.total_pages >= 5 && currentPageIndex > (searchData.total_pages - 5)) {
+        if (searchData.total_pages >= 5 && currentPageIndex > (searchData.total_pages - 4)) {
             resultsToDisplay = rangeOfPages.slice((searchData.total_pages-5), upperPageIndex);
         }
 
         return {
-            userSearchData: newSearch,
+            userSearchData: fetchedSearch,
             route: userSearchQuery,
             theCurrentPage: searchCurrentPage,
             allPages: searchAllPages,

@@ -12,14 +12,14 @@ export async function load({ fetch, params }) {
 
         const dataResults = data.results;
 
-        const filteredFetchedSearch = (arr) => {
-            const required = arr.filter(el => {
-                return el.poster_path;
-            });
-            return required;
-        };
+        // const filteredFetchedSearch = (arr) => {
+        //     const required = arr.filter(el => {
+        //         return el.poster_path;
+        //     });
+        //     return required;
+        // };
 
-        const newResults = filteredFetchedSearch(dataResults);
+        // const newResults = filteredFetchedSearch(dataResults);
 
         const currentPage = data.page.toString();
         const allPages = data.total_pages.toString();
@@ -45,7 +45,7 @@ export async function load({ fetch, params }) {
         }
 
         return {
-            genreOfChoice: newResults,
+            genreOfChoice: data.results,
             genreName: genreID,
             theCurrentPage: currentPage,
             allPages,

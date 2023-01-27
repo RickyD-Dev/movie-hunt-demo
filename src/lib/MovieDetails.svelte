@@ -11,19 +11,17 @@
 
     let newReleaseDateFormat;
 
-    if (!movieDetails.poster_path === '') {
-        const currentReleaseDateFormat =  new Date(movieDetails.release_date);
+    const currentReleaseDateFormat =  new Date(movieDetails.release_date);
 
-        const dateFormatting = new Intl.DateTimeFormat("en-us", {
-            dateStyle: "long"
-        });
+    const dateFormatting = new Intl.DateTimeFormat("en-us", {
+        dateStyle: "long"
+    });
 
+    if (currentReleaseDateFormat != "Invalid Date") {
         newReleaseDateFormat = dateFormatting.format(currentReleaseDateFormat);
     } else {
-        newReleaseDateFormat = 'Unavailable';
+        newReleaseDateFormat = "Unavailable";
     }
-
-    console.log("release date", movieDetails.release_date);
 </script>
 
 <div class={$page.url.pathname.includes("/genre") ? "movie_details_container_genre" : "movie_details_container_search"}>
