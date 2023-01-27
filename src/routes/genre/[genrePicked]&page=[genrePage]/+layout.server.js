@@ -49,7 +49,8 @@ export async function load({ fetch, params }) {
             genreName: genreID,
             theCurrentPage: currentPage,
             allPages,
-            resultsToDisplay
+            resultsToDisplay,
+            finalPage: pageEnd
         }
     } else {
         error(404, "Not found");

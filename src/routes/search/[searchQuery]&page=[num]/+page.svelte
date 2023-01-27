@@ -1,16 +1,10 @@
 <script>
-    import { invalidateAll } from "$app/navigation";
-	import { onMount } from "svelte";
     import { fly } from "svelte/transition";
 
     export let data;
     $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay, finalPage } = data);
 
     $: activePage = parseInt(theCurrentPage);
-
-    function rerunLoadFunction() {
-        invalidateAll();
-    };
 </script>
 
 <div class="search_bar_container">
@@ -81,7 +75,7 @@
             {/each}
             <li>
                 {#if activePage === finalPage}
-                    <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>&gt;</a>
+                    <a class="inactive" href={`/search/${currentSearch}&page=${activePage}`}>&gt;</a>
                 {:else if activePage < allPages}
                     <a class="page_item" href={`/search/${currentSearch}&page=${activePage+1}`}>&gt;</a>
                 {/if}

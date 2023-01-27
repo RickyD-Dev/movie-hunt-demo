@@ -7,7 +7,6 @@
 
 <style>
     .search_bar_container {
-        /* border: 1px solid green; */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -17,7 +16,6 @@
     }
 
     form {
-        /* border: 2px solid red; */
         width: 100%;
         height: 50px;
     }

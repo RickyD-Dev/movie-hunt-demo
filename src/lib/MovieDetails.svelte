@@ -216,7 +216,8 @@
     .release_streaming_container {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: 0px 90px;
         width: 100%;
         max-width: 520px;
     }

@@ -1,15 +1,10 @@
 <script>
-    import { invalidateAll } from "$app/navigation";
     import { fly } from "svelte/transition";
     export let data;
 
     $: ({ genreOfChoice, genreName, theCurrentPage, allPages, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
-
-    function rerunLoadFunction() {
-        invalidateAll();
-    };
 </script>
 
 <div data-sveltekit-preload-data="touch" class="genre_movies_container">
@@ -18,7 +13,8 @@
             {#each genreOfChoice as movie}
                 <li class="movie_posters">
                     {#await data}
-                        <div class="image_unavailable_container">
+                        <div class="image_loading">
+                            <img class src="/images/dog.jpg" alt="A cute dog">
                             <p>Loading...</p>
                         </div>
                     {:then}
@@ -75,14 +71,14 @@
                 {/if}
             {/each}
             <li>
-                {#if activePage === allPages}
-                    <a class="inactive" href={`/genre/${genreName}&page=${allPages}`}>&gt;</a>
+                {#if activePage === 500}
+                    <a class="inactive" href={`/genre/${genreName}&page=${activePage}`}>&gt;</a>
                 {:else if activePage < allPages}
                     <a class="page_item" href={`/genre/${genreName}&page=${activePage+1}`}>&gt;</a>
                 {/if}
             </li>
             <li>
-                {#if allPages === 500}
+                {#if activePage === 500}
                     <a class="inactive" href={`/genre/${genreName}&page=500`}>Last</a>
                 {:else}
                     <a class="page_item" href={`/genre/${genreName}&page=500`}>Last</a>
@@ -119,6 +115,29 @@
         .genre_movies_list {
             grid-template-columns: repeat(4, 1fr);
         }
+    }
+
+    .image_loading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 55%;
+        max-width: 270px;
+        height: 100%;
+        max-height: 432px;
+        /* border: 1px solid #20DCE8; */
+    }
+
+    .image_loading img {
+        visibility: hidden;
+        z-index: -1;
+        width: 100%;
+        max-width: 270px;
+    }
+
+    .image_loading p {
+        position: absolute;
     }
 
     .movie_posters {
