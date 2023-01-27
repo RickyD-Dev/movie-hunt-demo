@@ -67,7 +67,8 @@ export async function load({ params, fetch }) {
             totalResults: totalSearchResults,
             currentSearch: currentSearchQuery,
             rangeOfPages,
-            resultsToDisplay
+            resultsToDisplay,
+            finalPage: pageEnd
         }
     } else {
         error(404, "Not found.");

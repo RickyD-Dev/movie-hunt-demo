@@ -51,41 +51,41 @@
         <ul class="pagination_list">
             <li>
                 {#if activePage === 1}
-                    <a class="inactive" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=1`}>First</a>
+                    <a class="inactive" href={`/genre/${genreName}&page=1`}>First</a>
                 {:else}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=1`}>First</a>
+                    <a class="page_item" href={`/genre/${genreName}&page=1`}>First</a>
                 {/if}
             </li>
             <li>
                 {#if activePage === 1}
                     <a class="inactive" href={`/genre/${genreName}&page=1`}>&#60;</a>
                 {:else if activePage > 1}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${activePage-1}`}>&#60;</a>
+                    <a class="page_item" href={`/genre/${genreName}&page=${activePage-1}`}>&#60;</a>
                 {/if}
             </li>
             {#each resultsToDisplay as page}
                 {#if page === activePage}
                     <li>
-                        <a class="active" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${page}`}>{page}</a>
+                        <a class="active" href={`/genre/${genreName}&page=${page}`}>{page}</a>
                     </li>
                 {:else}
                     <li>
-                        <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${page}`}>{page}</a>
+                        <a class="page_item" href={`/genre/${genreName}&page=${page}`}>{page}</a>
                     </li>
                 {/if}
             {/each}
             <li>
-                {#if activePage === allPages || activePage === 500}
+                {#if activePage === allPages}
                     <a class="inactive" href={`/genre/${genreName}&page=${allPages}`}>&gt;</a>
                 {:else if activePage < allPages}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${activePage+1}`}>&gt;</a>
+                    <a class="page_item" href={`/genre/${genreName}&page=${activePage+1}`}>&gt;</a>
                 {/if}
             </li>
             <li>
                 {#if allPages === 500}
-                    <a class="inactive" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=500`}>Last</a>
+                    <a class="inactive" href={`/genre/${genreName}&page=500`}>Last</a>
                 {:else}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=500`}>Last</a>
+                    <a class="page_item" href={`/genre/${genreName}&page=500`}>Last</a>
                 {/if}
             </li>
         </ul>

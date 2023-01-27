@@ -1,9 +1,10 @@
 <script>
     import { invalidateAll } from "$app/navigation";
+	import { onMount } from "svelte";
     import { fly } from "svelte/transition";
 
     export let data;
-    $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay } = data);
+    $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay, finalPage } = data);
 
     $: activePage = parseInt(theCurrentPage);
 
@@ -55,41 +56,43 @@
         <ul class="pagination_list">
             <li>
                 {#if activePage === 1}
-                    <a class="inactive" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=1`}>First</a>
+                    <a class="inactive" href={`/search/${currentSearch}&page=1`}>First</a>
                 {:else}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=1`}>First</a>
+                    <a class="page_item" href={`/search/${currentSearch}&page=1`}>First</a>
                 {/if}
             </li>
             <li>
                 {#if activePage === 1}
                     <a class="inactive" href={`/search/${currentSearch}&page=1`}>&#60;</a>
                 {:else if activePage > 1}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${activePage-1}`}>&#60;</a>
+                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage-1}`}>&#60;</a>
                 {/if}
             </li>
             {#each resultsToDisplay as page}
                 {#if page === activePage}
                     <li>
-                        <a class="active" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${page}`}>{page}</a>
+                        <a class="active" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
                     </li>
                 {:else}
                     <li>
-                        <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${page}`}>{page}</a>
+                        <a class="page_item" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
                     </li>
                 {/if}
             {/each}
             <li>
-                {#if activePage === allPages}
+                {#if activePage === finalPage}
                     <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>&gt;</a>
                 {:else if activePage < allPages}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${activePage+1}`}>&gt;</a>
+                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage+1}`}>&gt;</a>
                 {/if}
             </li>
             <li>
-                {#if activePage === 500 || activePage === allPages}
-                    <a class="inactive" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                {#if activePage === finalPage}
+                    <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                {:else if activePage === 500}
+                    <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
                 {:else}
-                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                    <a class="page_item" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
                 {/if}
             </li>
         </ul>
