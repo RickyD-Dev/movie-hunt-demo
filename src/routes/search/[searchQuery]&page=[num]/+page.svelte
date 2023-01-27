@@ -3,16 +3,6 @@
     $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
-
-    async function fetchPoster(posterPath) {
-        const posterFetch = await fetch (`http://image.tmdb.org/t/p/w500${posterPath}`);
-
-        if (posterFetch.ok) {
-            return posterFetch.url;
-        } else {
-            throw new Error(posterFetch);
-        }
-    };
 </script>
 
 <div class="search_bar_container">
@@ -27,22 +17,22 @@
     <ul class="movies_list">
         {#each userSearchData as entry}
             <li class="movie_posters">
-                <a data-sveltekit-preload-data="tap" href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
-                    {#if entry.poster_path === null}
-                        <div class="image_unavailable_container">
-                            <p><em>Image Unavailable</em></p>
-                            <p>{entry.title}</p>
-                        </div>
-                    {:else}
-                        {#await fetchPoster(entry.poster_path)}
+                {#await data}
+                    <div class="image_unavailable_container">
+                        <p>Loading...</p>
+                    </div>
+                {:then}
+                    <a data-sveltekit-preload-data="tap" href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
+                        {#if entry.poster_path === null}
                             <div class="image_unavailable_container">
-                                <p>Loading...</p>
+                                <p><em>Image Unavailable</em></p>
+                                <p>{entry.title}</p>
                             </div>
-                        {:then poster}
-                            <img class="movie_poster_image" src={poster} alt="{entry.title} movie poster">
-                        {/await}
-                    {/if}
-                </a>
+                        {:else}
+                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{entry.poster_path}" alt="{entry.title} movie poster">
+                        {/if}
+                    </a>
+                {/await}
             </li>
         {/each}
     </ul>

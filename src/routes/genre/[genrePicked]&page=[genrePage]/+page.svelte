@@ -1,5 +1,6 @@
 <script>
     import { fly } from "svelte/transition";
+    import { preloadImage } from "$lib/utils.js";
     export let data;
 
     $: ({ genreOfChoice, genreName, theCurrentPage, allPages, resultsToDisplay } = data);
