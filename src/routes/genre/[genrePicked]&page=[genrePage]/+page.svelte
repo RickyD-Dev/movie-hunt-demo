@@ -17,7 +17,7 @@
     };
 </script>
 
-<div data-sveltekit-preload-code="viewport" class="genre_movies_container">
+<div class="genre_movies_container">
     <ul class="genre_movies_list">
         {#each genreOfChoice as movie}
             <li class="movie_posters" in:fly="{{ y:100, duration: 1000 }}">
