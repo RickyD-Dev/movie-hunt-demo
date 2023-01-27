@@ -1,4 +1,5 @@
 import { TMDB_API_KEY } from '$env/static/private';
+import { error } from '@sveltejs/kit';
 
 export async function load({ fetch, params }) {
     const genreID = params.genrePicked;
@@ -6,36 +7,52 @@ export async function load({ fetch, params }) {
 
     const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${genrePageNum}&with_genres=${genreID}&with_watch_monetization_types=flatrate`);
 
-    const data = await res.json();
+    if (res.ok) {
+        console.log(res.status);
+        const data = await res.json();
 
-    const currentPage = data.page.toString();
-    const allPages = data.total_pages.toString();
+        const dataResults = data.results;
 
-    const pageStart = 1;
-    const pageEnd = data.total_pages;
+        const filteredFetchedSearch = (arr) => {
+            const required = arr.filter(el => {
+                return el.poster_path;
+            });
+            return required;
+        };
 
-    const rangeOfPages = Array.from({length: 500}, (x, i) => i+pageStart);
+        const newResults = filteredFetchedSearch(dataResults);
 
-    const maxAmountofPages = 4;
-    let currentPageIndex = 0;
-    let upperPageIndex = maxAmountofPages;
+        const currentPage = data.page.toString();
+        const allPages = data.total_pages.toString();
 
-    let resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
+        const pageStart = 1;
+        const pageEnd = data.total_pages;
 
-    currentPageIndex += data.page - 1;
-    upperPageIndex += data.page;
+        const rangeOfPages = Array.from({length: 500}, (x, i) => i+pageStart);
 
-    resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
+        const maxAmountofPages = 4;
+        let currentPageIndex = 0;
+        let upperPageIndex = maxAmountofPages;
 
-    if (data.total_pages >= 5 && currentPageIndex > (500 - 5)) {
-        resultsToDisplay = rangeOfPages.slice((500-5), upperPageIndex);
-    }
+        let resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-    return {
-        genreOfChoice: data.results,
-        genreName: genreID,
-        theCurrentPage: currentPage,
-        allPages,
-        resultsToDisplay
+        currentPageIndex += data.page - 1;
+        upperPageIndex += data.page;
+
+        resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
+
+        if (data.total_pages >= 5 && currentPageIndex > (500 - 5)) {
+            resultsToDisplay = rangeOfPages.slice((500-5), upperPageIndex);
+        }
+
+        return {
+            genreOfChoice: newResults,
+            genreName: genreID,
+            theCurrentPage: currentPage,
+            allPages,
+            resultsToDisplay
+        }
+    } else {
+        error(404, "Not found");
     }
 }

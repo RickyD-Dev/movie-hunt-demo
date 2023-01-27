@@ -9,13 +9,21 @@
         window.history.go(-1);
     };
 
-    const currentReleaseDateFormat = new Date(movieDetails.release_date);
+    let newReleaseDateFormat;
 
-    const dateFormatting = new Intl.DateTimeFormat("en-us", {
-        dateStyle: "long"
-    });
+    if (!movieDetails.poster_path === '') {
+        const currentReleaseDateFormat =  new Date(movieDetails.release_date);
 
-    const newReleaseDateFormat = dateFormatting.format(currentReleaseDateFormat);
+        const dateFormatting = new Intl.DateTimeFormat("en-us", {
+            dateStyle: "long"
+        });
+
+        newReleaseDateFormat = dateFormatting.format(currentReleaseDateFormat);
+    } else {
+        newReleaseDateFormat = 'Unavailable';
+    }
+
+    console.log("release date", movieDetails.release_date);
 </script>
 
 <div class={$page.url.pathname.includes("/genre") ? "movie_details_container_genre" : "movie_details_container_search"}>
@@ -23,7 +31,10 @@
     <div class="button_image_container">
         <button class="details_return_button" on:click={goBack}>←</button>
         {#if movieDetails.poster_path === null}
-            <p><em>Image Unavailable</em></p>
+            <div class="image_unavailable">
+                <img class src="/images/dog.jpg" alt="A cute dog">
+                <p><em>Image Unavailable</em></p>
+            </div>
         {:else}
             <div class="details_poster_container">
                 <img src="http://image.tmdb.org/t/p/w500/{movieDetails.poster_path}" alt="">
@@ -38,21 +49,6 @@
             <p>{newReleaseDateFormat}</p>
         </div>
         <hr />
-        <!-- <div class="release_streaming_container"> -->
-            <!-- <div class="streaming_platform">
-                <h4>Streaming</h4>
-                <div class="streaming_details_container">
-                    {#if providerDetails != null}
-                        {#each providerDetails as provider}
-                            <p class="stream_item">- {provider.provider_name}</p>
-                        {/each}
-                        <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Visit TMDB for more info</a></p>
-                    {:else}
-                        <p class="stream_unavailable"><em>Stream may be available soon</em></p>
-                        <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Visit TMDB for more info</a></p>
-                    {/if}
-                </div>
-            </div> -->
         {#if providerDetails != null && rentDetails != null}
             <div class="release_streaming_container">
                 <div class="renting_platform">
@@ -65,7 +61,7 @@
                 </div>
 
                 <div class="streaming_platform">
-                    <h4>Streaming</h4>
+                    <h4>Stream</h4>
                     <div class="streaming_details_container">
                             {#each providerDetails as provider}
                                 <p class="stream_item">{provider.provider_name}</p>
@@ -77,7 +73,7 @@
         {:else if providerDetails != null && rentDetails === null}
             <div class="release_streaming_container">
                 <div class="streaming_platform">
-                    <h4>Streaming</h4>
+                    <h4>Stream</h4>
                     <div class="streaming_details_container">
                         {#each providerDetails as provider}
                             <p class="stream_item">{provider.provider_name}</p>
@@ -155,12 +151,13 @@
         max-width: 500px;
         justify-content: center;
         padding-bottom: 15px;
+        margin-right: 40px;
     }
 
     .details_return_button {
         cursor: pointer;
         position: relative;
-        left: -15%;
+        left: -9%;
         background-color: #000315;
         color: #20DCE8;
         border: 1px solid #20DCE8;
@@ -169,6 +166,29 @@
         width: 35px;
         font-size: 16px;
         font-weight: 200;
+    }
+
+    .image_unavailable {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 55%;
+        max-width: 270px;
+        height: 100%;
+        max-height: 432px;
+        border: 1px solid #20DCE8;
+    }
+
+    .image_unavailable img {
+        visibility: hidden;
+        z-index: -1;
+        width: 100%;
+        max-width: 270px;
+    }
+
+    .image_unavailable p {
+        position: absolute;
     }
 
     .details_poster_container {

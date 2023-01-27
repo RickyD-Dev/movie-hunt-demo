@@ -30,7 +30,7 @@
 
 <footer class="footer_container">
     <div class="copyright_coffee_container">
-        <p class="copyright_text">&copy; 2023 Movie Hunt</p>
+        <p class="copyright_text">Movie Hunt &copy; 2023</p>
         <a class="coffee_a" href="https://www.buymeacoffee.com/rickydlgd" title="Buy Rick a Coffee (:" target="_blank" rel="noreferrer"><i class="fa-solid fa-mug-hot"></i></a>
     </div>
     <div class="attribution_container">

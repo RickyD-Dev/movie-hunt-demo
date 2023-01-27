@@ -3,6 +3,16 @@
     $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
+
+    async function fetchPoster(posterPath) {
+        const posterFetch = await fetch (`http://image.tmdb.org/t/p/w500${posterPath}`);
+
+        if (posterFetch.ok) {
+            return posterFetch.url;
+        } else {
+            throw new Error(posterFetch);
+        }
+    };
 </script>
 
 <div class="search_bar_container">
@@ -15,25 +25,28 @@
 
 <div class="movies_container">
     <ul class="movies_list">
-        {#await userSearchData}
-            <p>Loading...</p>
-        {:then userSearchData}
-            {#each userSearchData as entry}
-                <li class="movie_posters">
-                    <a href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
-                        {#if entry.poster_path === null}
-                            <p class="if_poster_unavailable"><em>Image Unavailable</em></p>
-                            <p class="if_poster_unavailable">{entry.title}</p>
-                        {:else}
-                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{entry.poster_path}" alt="{entry.title} movie poster">
-                        {/if}
-                    </a>
-                </li>
-            {/each}
-        {/await}
+        {#each userSearchData as entry}
+            <li class="movie_posters">
+                <a data-sveltekit-preload-data="tap" href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
+                    {#if entry.poster_path === null}
+                        <div class="image_unavailable_container">
+                            <p><em>Image Unavailable</em></p>
+                            <p>{entry.title}</p>
+                        </div>
+                    {:else}
+                        {#await fetchPoster(entry.poster_path)}
+                            <div class="image_unavailable_container">
+                                <p>Loading...</p>
+                            </div>
+                        {:then poster}
+                            <img class="movie_poster_image" src={poster} alt="{entry.title} movie poster">
+                        {/await}
+                    {/if}
+                </a>
+            </li>
+        {/each}
     </ul>
     <div class="pages_list">
-        <!-- <p>Total results: {totalResults}</p> -->
         <p>Page {theCurrentPage} out of {allPages}</p>
     </div>
     <div class="pagination_container">
@@ -130,6 +143,7 @@
     .movies_list {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 1fr;
         justify-content: center;
         justify-items: center;
         gap: 10px;
@@ -160,9 +174,20 @@
         max-height: 432px;
     }
 
-    .if_poster_unavailable {
-        padding: 5px 0px;
+    .image_unavailable_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        max-width: 285px;
+        max-height: 432px;
         text-align: center;
+    }
+
+    .image_unavailable_container p {
+        padding-bottom: 10px;
     }
 
     .pages_list {
@@ -189,7 +214,7 @@
     .page_item {
         display: flex;
         justify-content: center;
-        padding: 8px;
+        padding: 5px;
         width: 100%;
         cursor: pointer;
     }
@@ -201,7 +226,7 @@
     .active {
         display: flex;
         justify-content: center;
-        padding: 8px;
+        padding: 5px;
         width: 100%;
         background-color: #2cbfc9;
         cursor: pointer;
