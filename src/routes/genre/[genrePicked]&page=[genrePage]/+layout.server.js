@@ -8,7 +8,6 @@ export async function load({ fetch, params }) {
     const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${genrePageNum}&with_genres=${genreID}&with_watch_monetization_types=flatrate`);
 
     if (res.ok) {
-        console.log(res.status);
         const data = await res.json();
 
         const dataResults = data.results;
