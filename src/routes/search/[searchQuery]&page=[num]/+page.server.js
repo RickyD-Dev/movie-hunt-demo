@@ -47,15 +47,17 @@ export async function load({ params, fetch }) {
         let upperPageIndex = maxAmountofPages;
 
         let resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
-
+        
         currentPageIndex += searchData.page - 1;
         upperPageIndex += searchData.page;
 
         resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-        if (searchData.total_pages >= 5 && currentPageIndex > (searchData.total_pages - 4)) {
+        if (searchData.total_pages >= 5 && currentPageIndex > (searchData.total_pages - 5)) {
             resultsToDisplay = rangeOfPages.slice((searchData.total_pages-5), upperPageIndex);
-        }
+        } else if (searchData.total_pages < 5 && currentPageIndex+1 == (searchData.total_pages - 1)) {
+            resultsToDisplay = rangeOfPages.slice((searchData.total_pages-6), upperPageIndex);
+        };
 
         return {
             userSearchData: fetchedSearch,

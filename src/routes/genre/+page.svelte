@@ -16,7 +16,34 @@
 
 <style>
     .genre-container {
-        padding: 0px 16px 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0px 25px 2.5rem;
+    }
+
+    /* .genre_list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 500px;
+    } */
+
+    .genre_list {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: 1fr;
+        width: 100%;
+        max-width: 800px;
+        gap: 5px;
+    }
+
+    @media screen and (min-width: 660px) and (orientation: landscape) {
+        .genre_list {
+            grid-template-columns: repeat(2, 1fr);
+            justify-items: center;
+        }
     }
 
     .genre-item {

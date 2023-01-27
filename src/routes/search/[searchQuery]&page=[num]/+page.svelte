@@ -1,8 +1,15 @@
 <script>
+    import { invalidateAll } from "$app/navigation";
+    import { fly } from "svelte/transition";
+
     export let data;
     $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
+
+    function rerunLoadFunction() {
+        invalidateAll();
+    };
 </script>
 
 <div class="search_bar_container">
@@ -13,53 +20,61 @@
     <p class="results_for_text">Results for: "{currentSearch}"</p>
 </div>
 
-<div class="movies_container">
-    <ul class="movies_list">
-        {#each userSearchData as entry}
-            <li class="movie_posters">
-                {#await data}
-                    <div class="image_unavailable_container">
-                        <p>Loading...</p>
-                    </div>
-                {:then}
-                    <a data-sveltekit-preload-data="tap" href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
-                        {#if entry.poster_path === null}
-                            <div class="image_unavailable_container">
-                                <p><em>Image Unavailable</em></p>
-                                <p>{entry.title}</p>
-                            </div>
-                        {:else}
-                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{entry.poster_path}" alt="{entry.title} movie poster">
-                        {/if}
-                    </a>
-                {/await}
-            </li>
-        {/each}
-    </ul>
+<div data-sveltekit-preload-data="touch" class="movies_container">
+    {#key userSearchData}
+        <ul class="movies_list" in:fly="{{ y:100, duration: 1000 }}">
+            {#each userSearchData as entry}
+                <li class="movie_posters">
+                    {#await data}
+                        <div class="image_unavailable_container">
+                            <p>Loading...</p>
+                        </div>
+                    {:then}
+                        <a href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
+                            {#if entry.poster_path === null}
+                                <div class="image_unavailable_container">
+                                    <p><em>Image Unavailable</em></p>
+                                    <p>{entry.title}</p>
+                                </div>
+                            {:else}
+                                <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{entry.poster_path}" alt="{entry.title} movie poster">
+                            {/if}
+                        </a>
+                    {/await}
+                </li>
+            {/each}
+        </ul>
+    {/key}
+
     <div class="pages_list">
         <p>Page {theCurrentPage} out of {allPages}</p>
     </div>
+
     <div class="pagination_container">
         <!-- PAGINATION SECTION -->
         <ul class="pagination_list">
             <li>
-                <a class="page_item" href={`/search/${currentSearch}&page=1`}>First</a>
+                {#if activePage === 1}
+                    <a class="inactive" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=1`}>First</a>
+                {:else}
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=1`}>First</a>
+                {/if}
             </li>
             <li>
                 {#if activePage === 1}
                     <a class="inactive" href={`/search/${currentSearch}&page=1`}>&#60;</a>
                 {:else if activePage > 1}
-                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage-1}`}>&#60;</a>
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${activePage-1}`}>&#60;</a>
                 {/if}
             </li>
             {#each resultsToDisplay as page}
                 {#if page === activePage}
                     <li>
-                        <a class="active" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
+                        <a class="active" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${page}`}>{page}</a>
                     </li>
                 {:else}
                     <li>
-                        <a class="page_item" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
+                        <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${page}`}>{page}</a>
                     </li>
                 {/if}
             {/each}
@@ -67,11 +82,15 @@
                 {#if activePage === allPages}
                     <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>&gt;</a>
                 {:else if activePage < allPages}
-                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage+1}`}>&gt;</a>
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${activePage+1}`}>&gt;</a>
                 {/if}
             </li>
             <li>
-                <a class="page_item" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                {#if activePage === 500}
+                    <a class="inactive" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                {:else}
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                {/if}
             </li>
         </ul>
     </div>
@@ -79,7 +98,6 @@
 
 <style>
     .search_bar_container {
-        /* border: 1px solid green; */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -89,7 +107,6 @@
     }
 
     form {
-        /* border: 2px solid red; */
         width: 100%;
         height: 50px;
     }

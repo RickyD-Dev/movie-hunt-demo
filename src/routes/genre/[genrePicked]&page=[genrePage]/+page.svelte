@@ -1,36 +1,42 @@
 <script>
+    import { invalidateAll } from "$app/navigation";
     import { fly } from "svelte/transition";
-    import { preloadImage } from "$lib/utils.js";
     export let data;
 
     $: ({ genreOfChoice, genreName, theCurrentPage, allPages, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
+
+    function rerunLoadFunction() {
+        invalidateAll();
+    };
 </script>
 
-<div class="genre_movies_container">
-    <ul class="genre_movies_list">
-        {#each genreOfChoice as movie}
-            <li class="movie_posters" in:fly="{{ y:100, duration: 1000 }}">
-                {#await data}
-                    <div class="image_unavailable_container">
-                        <p>Loading...</p>
-                    </div>
-                {:then}
-                    <a href={`/genre/${genreName}&page=1/details/${movie.id}`}>
-                        {#if movie.poster_path === null}
-                            <div class="image_unavailable_container">
-                                <p><em>Image Unavailable</em></p>
-                                <p>{movie.title}</p>
-                            </div>
-                        {:else}
-                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{movie.poster_path}" alt="{movie.title} movie poster">
-                        {/if}
-                    </a>
-                {/await}
-            </li>
-        {/each}
-    </ul>
+<div data-sveltekit-preload-data="touch" class="genre_movies_container">
+    {#key genreOfChoice}
+        <ul class="genre_movies_list" in:fly="{{ y:100, duration: 1000 }}">
+            {#each genreOfChoice as movie}
+                <li class="movie_posters">
+                    {#await data}
+                        <div class="image_unavailable_container">
+                            <p>Loading...</p>
+                        </div>
+                    {:then}
+                        <a href={`/genre/${genreName}&page=1/details/${movie.id}`}>
+                            {#if movie.poster_path === null}
+                                <div class="image_unavailable_container">
+                                    <p><em>Image Unavailable</em></p>
+                                    <p>{movie.title}</p>
+                                </div>
+                            {:else}
+                                <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{movie.poster_path}" alt="{movie.title} movie poster">
+                            {/if}
+                        </a>
+                    {/await}
+                </li>
+            {/each}
+        </ul>
+    {/key}
 
     <div class="pages_list">
         {#if allPages > 500}
@@ -39,27 +45,32 @@
             <p>Page {theCurrentPage} out of {allPages}</p>
         {/if}
     </div>
+
     <div class="pagination_container">
         <!-- PAGINATION SECTION -->
         <ul class="pagination_list">
             <li>
-                <a class="page_item" href={`/genre/${genreName}&page=1`}>First</a>
+                {#if activePage === 1}
+                    <a class="inactive" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=1`}>First</a>
+                {:else}
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=1`}>First</a>
+                {/if}
             </li>
             <li>
                 {#if activePage === 1}
                     <a class="inactive" href={`/genre/${genreName}&page=1`}>&#60;</a>
                 {:else if activePage > 1}
-                    <a class="page_item" href={`/genre/${genreName}&page=${activePage-1}`}>&#60;</a>
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${activePage-1}`}>&#60;</a>
                 {/if}
             </li>
             {#each resultsToDisplay as page}
                 {#if page === activePage}
                     <li>
-                        <a class="active" href={`/genre/${genreName}&page=${page}`}>{page}</a>
+                        <a class="active" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${page}`}>{page}</a>
                     </li>
                 {:else}
                     <li>
-                        <a class="page_item" href={`/genre/${genreName}&page=${page}`}>{page}</a>
+                        <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${page}`}>{page}</a>
                     </li>
                 {/if}
             {/each}
@@ -67,14 +78,14 @@
                 {#if activePage === allPages || activePage === 500}
                     <a class="inactive" href={`/genre/${genreName}&page=${allPages}`}>&gt;</a>
                 {:else if activePage < allPages}
-                    <a class="page_item" href={`/genre/${genreName}&page=${activePage+1}`}>&gt;</a>
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=${activePage+1}`}>&gt;</a>
                 {/if}
             </li>
             <li>
-                {#if allPages > 500}
-                    <a class="page_item" href={`/genre/${genreName}&page=500`}>Last</a>
+                {#if allPages === 500}
+                    <a class="inactive" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=500`}>Last</a>
                 {:else}
-                    <a class="page_item" href={`/genre/${genreName}&page=${allPages}`}>Last</a>
+                    <a class="page_item" on:click={rerunLoadFunction} href={`/genre/${genreName}&page=500`}>Last</a>
                 {/if}
             </li>
         </ul>
@@ -135,17 +146,11 @@
         max-width: 285px;
         max-height: 432px;
         text-align: center;
-        /* border: 1px solid #2cbfc9; */
     }
 
     .image_unavailable_container p {
         padding-bottom: 10px;
     }
-
-    /* .if_poster_unavailable {
-        padding: 5px 0px;
-        text-align: center;
-    } */
 
     .pages_list {
         padding: 20px 0px 0px;

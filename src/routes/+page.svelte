@@ -28,6 +28,8 @@
         font-size: 34px;
         font-weight: 300;
         text-align: center;
+        width: 100%;
+        max-width: 500px;
     }
 
     .explore-button-container {
