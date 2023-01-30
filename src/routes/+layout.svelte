@@ -36,7 +36,7 @@
     <div class="attribution_container">
         <p class="attribution_text">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
         <a class="tmdb_logo_a" href="https://www.themoviedb.org/">
-            <img class="tmdb_logo" src="/images/tmdb_logo2.svg" alt="">
+            <img class="tmdb_logo" src="/images/tmdb_logo2.svg" alt="The Movie Data Base logo">
         </a>
     </div>
     <p class="created_by">Created by Ricardo Delgado</p>
