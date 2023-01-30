@@ -5,12 +5,12 @@ export async function load({ fetch, params }) {
     const genreID = params.genrePicked;
     const genrePageNum = params.genrePage;
 
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${genrePageNum}&with_genres=${genreID}&with_watch_monetization_types=flatrate`);
+    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${genrePageNum}&with_genres=${genreID}&with_watch_monetization_types=flatrate&with_origin_country=US`);
 
     if (res.ok) {
         const data = await res.json();
 
-        const dataResults = data.results;
+        // const dataResults = data.results;
 
         // const filteredFetchedSearch = (arr) => {
         //     const required = arr.filter(el => {
@@ -29,7 +29,7 @@ export async function load({ fetch, params }) {
 
         if (data.total_pages > 500) {
             pageEnd = 500;
-        } else if (data.total_pages < 500) {
+        } else if (data.total_pages <= 500) {
             pageEnd = data.total_pages;
         }
 

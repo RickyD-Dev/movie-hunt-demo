@@ -12,23 +12,16 @@
         <ul class="genre_movies_list" in:fly="{{ y:100, duration: 1000 }}">
             {#each genreOfChoice as movie}
                 <li class="movie_posters">
-                    {#await data}
-                        <div class="image_loading">
-                            <img class src="/images/dog.jpg" alt="A cute dog">
-                            <p>Loading...</p>
-                        </div>
-                    {:then}
-                        <a href={`/genre/${genreName}&page=1/details/${movie.id}`}>
-                            {#if movie.poster_path === null}
-                                <div class="image_unavailable_container">
-                                    <p><em>Image Unavailable</em></p>
-                                    <p>{movie.title}</p>
-                                </div>
-                            {:else}
-                                <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{movie.poster_path}" alt="{movie.title} movie poster">
-                            {/if}
-                        </a>
-                    {/await}
+                    <a href={`/genre/${genreName}&page=1/details/${movie.id}`}>
+                        {#if movie.poster_path === null}
+                            <div class="image_unavailable_container">
+                                <p><em>Image Unavailable</em></p>
+                                <p>{movie.title}</p>
+                            </div>
+                        {:else}
+                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{movie.poster_path}" alt="{movie.title} movie poster">
+                        {/if}
+                    </a>
                 </li>
             {/each}
         </ul>
@@ -79,7 +72,7 @@
             </li>
             <li>
                 {#if activePage === finalPage}
-                    <a class="inactive" href={`/genre/${genreName}&page=500`}>Last</a>
+                    <a class="inactive" href={`/genre/${genreName}&page=${finalPage}`}>Last</a>
                 {:else}
                     <a class="page_item" href={`/genre/${genreName}&page=${finalPage}`}>Last</a>
                 {/if}
@@ -115,29 +108,6 @@
         .genre_movies_list {
             grid-template-columns: repeat(4, 1fr);
         }
-    }
-
-    .image_loading {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 55%;
-        max-width: 270px;
-        height: 100%;
-        max-height: 432px;
-        /* border: 1px solid #20DCE8; */
-    }
-
-    .image_loading img {
-        visibility: hidden;
-        z-index: -1;
-        width: 100%;
-        max-width: 270px;
-    }
-
-    .image_loading p {
-        position: absolute;
     }
 
     .movie_posters {

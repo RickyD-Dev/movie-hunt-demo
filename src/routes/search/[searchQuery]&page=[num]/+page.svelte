@@ -1,7 +1,7 @@
 <script>
     import { fly } from "svelte/transition";
-
     export let data;
+    
     $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay, finalPage } = data);
 
     $: activePage = parseInt(theCurrentPage);
@@ -20,29 +20,23 @@
         <ul class="movies_list" in:fly="{{ y:100, duration: 1000 }}">
             {#each userSearchData as entry}
                 <li class="movie_posters">
-                    {#await data}
-                        <div class="image_unavailable_container">
-                            <p>Loading...</p>
-                        </div>
-                    {:then}
-                        <a href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
-                            {#if entry.poster_path === null}
-                                <div class="image_unavailable_container">
-                                    <p><em>Image Unavailable</em></p>
-                                    <p>{entry.title}</p>
-                                </div>
-                            {:else}
-                                <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{entry.poster_path}" alt="{entry.title} movie poster">
-                            {/if}
-                        </a>
-                    {/await}
+                    <a href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
+                        {#if entry.poster_path === null}
+                            <div class="image_unavailable_container">
+                                <p><em>Image Unavailable</em></p>
+                                <p>{entry.title}</p>
+                            </div>
+                        {:else}
+                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{entry.poster_path}" alt="{entry.title} movie poster">
+                        {/if}
+                    </a>
                 </li>
             {/each}
         </ul>
     {/key}
 
     <div class="pages_list">
-        <p>Page {theCurrentPage} out of {allPages}</p>
+        <p>Page {theCurrentPage} out of {finalPage}</p>
     </div>
 
     <div class="pagination_container">
@@ -82,11 +76,9 @@
             </li>
             <li>
                 {#if activePage === finalPage}
-                    <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
-                {:else if activePage === 500}
-                    <a class="inactive" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                    <a class="inactive" href={`/search/${currentSearch}&page=${finalPage}`}>Last</a>
                 {:else}
-                    <a class="page_item" href={`/search/${currentSearch}&page=${allPages}`}>Last</a>
+                    <a class="page_item" href={`/search/${currentSearch}&page=${finalPage}`}>Last</a>
                 {/if}
             </li>
         </ul>

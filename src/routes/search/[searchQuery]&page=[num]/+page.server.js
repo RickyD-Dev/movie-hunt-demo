@@ -40,7 +40,7 @@ export async function load({ params, fetch }) {
 
         if (searchData.total_pages > 500) {
             pageEnd = 500;
-        } else if (searchData.total_pages < 500) {
+        } else if (searchData.total_pages <= 500) {
             pageEnd = searchData.total_pages;
         }
 
@@ -59,10 +59,10 @@ export async function load({ params, fetch }) {
 
         resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-        if (searchData.total_pages >= 5 && currentPageIndex > (pageEnd - 5)) {
-            resultsToDisplay = rangeOfPages.slice((pageEnd - 5), upperPageIndex);
-        } else if (searchData.total_pages < 5 && (currentPageIndex + 1) <= (pageEnd)) {
+        if (searchData.total_pages < 5 && (currentPageIndex + 1) <= (pageEnd)) {
             resultsToDisplay = rangeOfPages.slice((pageEnd - 6), upperPageIndex);
+        } else if (searchData.total_pages >= 5 && currentPageIndex > (pageEnd - 5)) {
+            resultsToDisplay = rangeOfPages.slice((pageEnd - 5), upperPageIndex);
         };
 
         return {
