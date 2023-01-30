@@ -2,7 +2,7 @@
     import { fly } from "svelte/transition";
     export let data;
 
-    $: ({ genreOfChoice, genreName, theCurrentPage, allPages, resultsToDisplay } = data);
+    $: ({ genreOfChoice, genreName, theCurrentPage, allPages, finalPage, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
 </script>
@@ -71,17 +71,17 @@
                 {/if}
             {/each}
             <li>
-                {#if activePage === 500}
+                {#if activePage === finalPage}
                     <a class="inactive" href={`/genre/${genreName}&page=${activePage}`}>&gt;</a>
                 {:else if activePage < allPages}
                     <a class="page_item" href={`/genre/${genreName}&page=${activePage+1}`}>&gt;</a>
                 {/if}
             </li>
             <li>
-                {#if activePage === 500}
+                {#if activePage === finalPage}
                     <a class="inactive" href={`/genre/${genreName}&page=500`}>Last</a>
                 {:else}
-                    <a class="page_item" href={`/genre/${genreName}&page=500`}>Last</a>
+                    <a class="page_item" href={`/genre/${genreName}&page=${finalPage}`}>Last</a>
                 {/if}
             </li>
         </ul>

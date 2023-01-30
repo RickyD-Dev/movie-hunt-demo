@@ -36,7 +36,13 @@ export async function load({ params, fetch }) {
         const totalSearchResults = searchData.total_results.toString();
 
         const pageStart = 1;
-        const pageEnd = searchData.total_pages;
+        let pageEnd;
+
+        if (searchData.total_pages > 500) {
+            pageEnd = 500;
+        } else if (searchData.total_pages < 500) {
+            pageEnd = searchData.total_pages;
+        }
 
         const rangeOfPages = Array.from({length: pageEnd}, (x, i) => i+pageStart);
 
@@ -53,10 +59,10 @@ export async function load({ params, fetch }) {
 
         resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-        if (searchData.total_pages >= 5 && currentPageIndex > (searchData.total_pages - 5)) {
-            resultsToDisplay = rangeOfPages.slice((searchData.total_pages - 5), upperPageIndex);
-        } else if (searchData.total_pages < 5 && (currentPageIndex + 1) <= (searchData.total_pages)) {
-            resultsToDisplay = rangeOfPages.slice((searchData.total_pages - 6), upperPageIndex);
+        if (searchData.total_pages >= 5 && currentPageIndex > (pageEnd - 5)) {
+            resultsToDisplay = rangeOfPages.slice((pageEnd - 5), upperPageIndex);
+        } else if (searchData.total_pages < 5 && (currentPageIndex + 1) <= (pageEnd)) {
+            resultsToDisplay = rangeOfPages.slice((pageEnd - 6), upperPageIndex);
         };
 
         return {

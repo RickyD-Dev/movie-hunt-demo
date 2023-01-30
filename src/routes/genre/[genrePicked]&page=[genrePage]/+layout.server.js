@@ -25,9 +25,15 @@ export async function load({ fetch, params }) {
         const allPages = data.total_pages.toString();
 
         const pageStart = 1;
-        const pageEnd = data.total_pages;
+        let pageEnd;
 
-        const rangeOfPages = Array.from({length: 500}, (x, i) => i+pageStart);
+        if (data.total_pages > 500) {
+            pageEnd = 500;
+        } else if (data.total_pages < 500) {
+            pageEnd = data.total_pages;
+        }
+
+        const rangeOfPages = Array.from({length: pageEnd}, (x, i) => i+pageStart);
 
         const maxAmountofPages = 4;
         let currentPageIndex = 0;
@@ -40,9 +46,11 @@ export async function load({ fetch, params }) {
 
         resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
-        if (data.total_pages >= 5 && currentPageIndex > (500 - 5)) {
-            resultsToDisplay = rangeOfPages.slice((500-5), upperPageIndex);
-        }
+        if (data.total_pages >= 5 && currentPageIndex > (pageEnd - 5)) {
+            resultsToDisplay = rangeOfPages.slice((pageEnd - 5), upperPageIndex);
+        } else if (data.total_pages < 5 && (currentPageIndex + 1) <= (pageEnd)) {
+            resultsToDisplay = rangeOfPages.slice((pageEnd - 6), upperPageIndex);
+        };
 
         return {
             genreOfChoice: data.results,

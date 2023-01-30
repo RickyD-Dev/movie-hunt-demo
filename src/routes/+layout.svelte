@@ -86,7 +86,7 @@
         font-family: 'Yellowtail', cursive;
         font-size: 50px;
         font-weight: 400;
-        animation: pulsate 0.9s ease-in-out infinite alternate;
+        animation: pulsate 0.5s ease-in-out infinite alternate;
     }
 
     /* ---------- Genre/Search Header Styles ---------- */
