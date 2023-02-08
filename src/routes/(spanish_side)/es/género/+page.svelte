@@ -1,0 +1,50 @@
+<script>
+    import { fly } from "svelte/transition";
+    export let data;
+    const { movieGenres } = data;
+</script>
+
+<div class="genre-container">
+    <ul class="genre_list">
+        {#each movieGenres as movieGenre}
+            <li class="genre-item" in:fly="{{ y:100, duration: 1000 }}">
+                <a lang="es-MX" href={`/es/g%C3%A9nero/${movieGenre.id}&p%C3%A1gina=1`}>{movieGenre.name}</a>
+            </li>
+        {/each}
+    </ul>
+</div>
+
+<style>
+    .genre-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0px 25px 2.5rem;
+    }
+
+    .genre_list {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: 1fr;
+        width: 100%;
+        max-width: 800px;
+        gap: 5px;
+    }
+
+    @media screen and (min-width: 660px) and (orientation: landscape) {
+        .genre_list {
+            grid-template-columns: repeat(2, 1fr);
+            justify-items: center;
+        }
+    }
+
+    .genre-item {
+        font-size: 32px;
+        padding-bottom: 15px;
+    }
+
+    .genre-item a:hover {
+        color: #2cbfc9;
+    }
+</style>

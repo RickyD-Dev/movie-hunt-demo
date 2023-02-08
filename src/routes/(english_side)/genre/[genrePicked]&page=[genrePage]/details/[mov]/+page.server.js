@@ -5,7 +5,7 @@ export async function load({ fetch, params }) {
     const movieID = params.mov;
     const res = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${TMDB_API_KEY}&language=en-US`);
     
-    const providerResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${TMDB_API_KEY}&`);
+    const providerResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=${TMDB_API_KEY}&language=es`);
 
     if (res.ok && providerResponse.ok) {
         const data = await res.json();

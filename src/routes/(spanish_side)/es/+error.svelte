@@ -7,37 +7,37 @@
 
 <div class="error_container">
     <div class="cute_dogImage_container">
-        <img src="https://www.transparentpng.com/thumb/dog/transparent-picture-dog-4.png" alt="A cute dog from @transparentpng.com">
+        <img lang="es-MX" src="https://www.transparentpng.com/thumb/dog/transparent-picture-dog-4.png" alt="A cute dog from @transparentpng.com">
     </div>
 
     <div class="error_message_container">
         {#if pageStatus === 404}
-            <h1>Sorry, we couldn't find what you were looking for but we did manage to find this cute dog!</h1>
+            <h1 lang="es-MX">Lo sentimos, no pudimos encontrar lo que estabas buscando, ¡pero logramos encontrar a este lindo perrito!</h1>
 
-            <p class="keep_browsing_message">Please check the URL for any oddball behaviour or feel free to keep browsing for movies by going back to our <a href="/" class="error_homepage_link">homepage</a>.</p>
+            <p lang="es-MX" class="keep_browsing_message">Verifique la URL para detectar cualquier comportamiento extraño o siéntase libre de seguir buscando películas volviendo a nuestro <a href="/" class="error_homepage_link">página principal</a>.</p>
 
             <div class="for_theNerds">
-                <h3>For the nerds:</h3>
-                <p>Error {pageStatus}</p>
-                <p>Page {$page.error.message}</p>
+                <h3 lang="es-MX">Para los nerds:</h3>
+                <p lang="es-MX">Error {pageStatus}</p>
+                <p lang="es-MX">Página {$page.error.message}</p>
             </div>
         {:else if pageStatus === 500}
-            <h1>Looks like there's been an internal error...</h1>
+            <h1 lang="es-MX">Parece que ha habido un error interno...</h1>
 
-            <p class="keep_browsing_message">You can hang out with this cute dog or feel free to keep browsing for movies by going back to our <a href="/" class="error_homepage_link">homepage</a>.</p>
+            <p lang="es-MX" class="keep_browsing_message">Puedes pasar el rato con este lindo perro o siéntete libre de seguir buscando películas volviendo a nuestro <a href="/" class="error_homepage_link">página principal</a>.</p>
 
             <div class="for_theNerds">
-                <h3>For the nerds:</h3>
-                <p>Error {pageStatus}</p>
+                <h3 lang="es-MX">Para los nerds:</h3>
+                <p lang="es-MX">Error {pageStatus}</p>
             </div>
         {:else}
-            <h1>I think we made a mistake...</h1>
+            <h1 lang="es-MX">Creo que cometimos un error...</h1>
 
-            <p class="keep_browsing_message">Please forgive us? Once you do (because you will), feel free to keep browsing for movies by going back to our <a href="/" class="error_homepage_link">homepage</a>.</p>
+            <p lang="es-MX" class="keep_browsing_message">¿Nos perdonarás? Una vez que lo haga (porque sí lo harás (: ), siéntase libre de seguir buscando películas volviendo a nuestro <a href="/" class="error_homepage_link">página principal</a>.</p>
 
             <div class="for_theNerds">
-                <h3>For the nerds:</h3>
-                <p>Error {pageStatus}</p>
+                <h3 lang="es-MX">Para los nerds:</h3>
+                <p lang="es-MX">Error {pageStatus}</p>
             </div>
         {/if}
     </div>

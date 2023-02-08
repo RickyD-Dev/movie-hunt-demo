@@ -6,16 +6,24 @@
     export let rentDetails;
 
     function goBack() {
-        window.history.go(-1);
+        window.history.go(-1);        
     };
 
     let newReleaseDateFormat;
 
     const currentReleaseDateFormat =  new Date(movieDetails.release_date);
 
-    const dateFormatting = new Intl.DateTimeFormat("en-us", {
-        dateStyle: "long"
-    });
+    let dateFormatting;
+
+    if ($page.url.pathname.includes("/es")) {
+        dateFormatting = new Intl.DateTimeFormat("es", {
+            dateStyle: "long"
+        });
+    } else {
+        dateFormatting = new Intl.DateTimeFormat("en-us", {
+            dateStyle: "long"
+        });
+    }
 
     if (currentReleaseDateFormat != "Invalid Date") {
         newReleaseDateFormat = dateFormatting.format(currentReleaseDateFormat);
@@ -24,14 +32,18 @@
     }
 </script>
 
-<div class={$page.url.pathname.includes("/genre") ? "movie_details_container_genre" : "movie_details_container_search"}>
+<div class={$page.url.pathname.includes("/genre") || $page.url.pathname.includes("/es/g%C3%A9nero") ? "movie_details_container_genre" : "movie_details_container_search"}>
     <!-- <button class="details_return_button" on:click={goBack}>← Back to Genres</button> -->
     <div class="button_image_container">
-        <button class="details_return_button" on:click={goBack}>←</button>
+        <button class="details_return_button" on:click={goBack}><i class="fa-solid fa-arrow-left"></i></button>
         {#if movieDetails.poster_path === null}
             <div class="image_unavailable">
                 <img class src="/images/dog.jpg" alt="A cute dog">
-                <p><em>Image Unavailable</em></p>
+                {#if $page.url.pathname.includes("/es")}
+                    <p><em>Imagen no disponible</em></p>
+                {:else}
+                    <p><em>Image Unavailable</em></p>
+                {/if}
             </div>
         {:else}
             <div class="details_poster_container">
@@ -43,14 +55,22 @@
 
     <div class="movieInfo_container">
         <div class="release_date">
-            <h4>Release Date</h4>
+            {#if $page.url.pathname.includes("/es")}
+                <h4>Fecha de lanzamiento</h4>
+            {:else}
+                <h4>Release Date</h4>
+            {/if}
             <p>{newReleaseDateFormat}</p>
         </div>
         <hr />
         {#if providerDetails != null && rentDetails != null}
             <div class="release_streaming_container">
                 <div class="renting_platform">
-                    <h4>Rent</h4>
+                    {#if $page.url.pathname.includes("/es")}
+                        <h4>Rentar</h4>
+                    {:else}
+                        <h4>Rent</h4>
+                    {/if}
                     <div class="renting_details_container">
                         {#each rentDetails as rent}
                             <p class="stream_item">{rent.provider_name}</p>
@@ -59,7 +79,11 @@
                 </div>
 
                 <div class="streaming_platform">
-                    <h4>Stream</h4>
+                    {#if $page.url.pathname.includes("/es")}
+                        <h4>Transmitir</h4>
+                    {:else}
+                        <h4>Stream</h4>
+                    {/if}
                     <div class="streaming_details_container">
                             {#each providerDetails as provider}
                                 <p class="stream_item">{provider.provider_name}</p>
@@ -67,11 +91,19 @@
                     </div>
                 </div>
             </div>
-            <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {#if $page.url.pathname.includes("/es")}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Visite TMDB para obtener más información</a></p>
+            {:else}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {/if}
         {:else if providerDetails != null && rentDetails === null}
             <div class="release_streaming_container">
                 <div class="streaming_platform">
-                    <h4>Stream</h4>
+                    {#if $page.url.pathname.includes("/es")}
+                        <h4>Transmitir</h4>
+                    {:else}
+                        <h4>Stream</h4>
+                    {/if}
                     <div class="streaming_details_container">
                         {#each providerDetails as provider}
                             <p class="stream_item">{provider.provider_name}</p>
@@ -79,11 +111,19 @@
                     </div>
                 </div>
             </div>
-            <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {#if $page.url.pathname.includes("/es")}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Visite TMDB para obtener más información</a></p>
+            {:else}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {/if}
         {:else if providerDetails === null && rentDetails != null}
             <div class="release_streaming_container">
                 <div class="renting_platform">
-                    <h4>Rent</h4>
+                    {#if $page.url.pathname.includes("/es")}
+                        <h4>Rentar</h4>
+                    {:else}
+                        <h4>Rent</h4>
+                    {/if}
                     <div class="renting_details_container">
                         {#each rentDetails as rent}
                             <p class="stream_item">{rent.provider_name}</p>
@@ -91,18 +131,34 @@
                     </div>
                 </div>
             </div>
-            <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {#if $page.url.pathname.includes("/es")}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Visite TMDB para obtener más información</a></p>
+            {:else}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {/if}
         {:else if providerDetails === null && rentDetails === null}
             <div class="streaming_unavailable_container">
                 <div class="renting_platform">
-                    <p class="stream_unavailable"><em>Stream/Rent may be available soon</em></p>
+                    {#if $page.url.pathname.includes("/es")}
+                        <p class="stream_unavailable"><em>Renta o transmisión puede estar disponible pronto</em></p>
+                    {:else}
+                        <p class="stream_unavailable"><em>Stream/Rent may be available soon</em></p>
+                    {/if}
                 </div>
             </div>
-            <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {#if $page.url.pathname.includes("/es")}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Visite TMDB para obtener más información</a></p>
+            {:else}
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+            {/if}
         {/if}
         <hr />
         <div class="details_container">
-            <h4>Description</h4>
+            {#if $page.url.pathname.includes("/es")}
+                <h4>Descripción</h4>
+            {:else}
+                <h4>Description</h4>
+            {/if}
             <p>{movieDetails.overview}</p>
         </div>
     </div>
@@ -158,12 +214,16 @@
         left: -9%;
         background-color: #000315;
         color: #20DCE8;
-        border: 1px solid #20DCE8;
+        border: 2px solid rgba(32, 220, 232, 0.8);
         border-radius: 50%;
         height: 35px;
         width: 35px;
         font-size: 16px;
         font-weight: 200;
+    }
+
+    .fa-arrow-left {
+        transform: translateY(1px);
     }
 
     .image_unavailable {

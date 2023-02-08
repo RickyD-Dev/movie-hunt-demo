@@ -1,8 +1,8 @@
 <div class="home-main-container">
-    <h1 class="home-title">Find out where your favorite movies are playing.</h1>
-
+    <h1 lang="es-MX" class="home-title">Descubre dónde puedes ver tus películas favoritas.</h1>
+    
     <div class="explore-button-container">
-        <a class="explore-link" href="/genre">Explore</a>
+        <a lang="es-MX" class="explore-link" href="/es/género">Comenzar</a>
     </div>
 </div>
 
@@ -12,7 +12,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-bottom: 10rem;
+        padding-bottom: 7rem;
         width: 100%;
     }
 
