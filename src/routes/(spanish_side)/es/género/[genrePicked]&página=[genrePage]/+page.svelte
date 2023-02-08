@@ -1,20 +1,17 @@
 <script>
-    import { page } from '$app/stores';
     import { fly } from "svelte/transition";
     export let data;
 
     $: ({ genreOfChoice, genreName, theCurrentPage, allPages, finalPage, resultsToDisplay } = data);
 
     $: activePage = parseInt(theCurrentPage);
-
-    console.log($page.url.pathname);
 </script>
 
 <div data-sveltekit-preload-data="touch" class="genre_movies_container">
     {#key genreOfChoice}
         <ul class="genre_movies_list" in:fly="{{ y:100, duration: 1000 }}">
             {#each genreOfChoice as movie}
-                <li class="movie_posters">
+                <li id={movie.id} class="movie_posters">
                     <a href={`/es/g%C3%A9nero/${genreName}&p%C3%A1gina=1/detalles/${movie.id}`}>
                         {#if movie.poster_path === null}
                             <div class="image_unavailable_container">
