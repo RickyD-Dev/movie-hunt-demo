@@ -168,7 +168,7 @@
     }
 
     .toggle_choice span {
-        padding-left: 8px;
+        padding-left: 6px;
     }
 
     .header-container {
