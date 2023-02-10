@@ -1,13 +1,13 @@
-<div class="home-main-container">
-    <h1 lang="es-MX" class="home-title">Descubre dónde puedes ver tus películas favoritas.</h1>
+<div class="home_main_container">
+    <h1 lang="es-MX" class="home_title">Descubre dónde puedes ver tus películas favoritas.</h1>
     
-    <div class="explore-button-container">
-        <a lang="es-MX" class="explore-link" href="/es/género">Comenzar</a>
+    <div class="explore_button_container">
+        <a lang="es-MX" class="explore_link" href="/es/género"><span>Comenzar</span></a>
     </div>
 </div>
 
 <style>
-    .home-main-container {
+    .home_main_container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -16,7 +16,7 @@
         width: 100%;
     }
 
-    .home-title {
+    .home_title {
         padding: 40px 16px;
         font-size: 34px;
         font-weight: 300;
@@ -25,7 +25,7 @@
         max-width: 500px;
     }
 
-    .explore-button-container {
+    .explore_button_container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -34,7 +34,7 @@
         padding-top: 20px;
     }
 
-    .explore-link {
+    .explore_link {
         background-color: #000315;
         color: #fff;
         border: 2px solid rgba(44, 191, 201, 0.8);
@@ -50,7 +50,11 @@
         transition: background-color 150ms ease-in-out;
     }
 
-    .explore-link:hover {
+    .explore_link:hover {
         background-color: rgba(44, 191, 201, 0.2);
+    }
+
+    .explore_link span {
+        transform: translateY(1px);
     }
 </style>
