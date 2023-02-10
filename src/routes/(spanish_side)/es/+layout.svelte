@@ -97,7 +97,7 @@
             <img lang="es-MX" class="tmdb_logo" src="/images/tmdb_logo2.svg" alt="The Movie Data Base logo">
         </a>
     </div>
-    <p lang="es-MX" class="created_by">Creado por Ricardo Delgado</p>
+    <p lang="es-MX" class="created_by">Creado por <a class="email_ricky" href="mailto:rickydlgd.dev@gmail.com">Ricardo Delgado</a></p>
 </footer>
 
 <style>
@@ -334,5 +334,10 @@
 
     .created_by {
         font-size: 10px;
+    }
+
+    .email_ricky:hover {
+        color: #20DCE8;
+        text-decoration: underline;
     }
 </style>
