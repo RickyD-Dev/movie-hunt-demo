@@ -97,7 +97,7 @@
             <img lang="es-MX" class="tmdb_logo" src="/images/tmdb_logo2.svg" alt="The Movie Data Base logo">
         </a>
     </div>
-    <p lang="es-MX" class="created_by">Creado por <a class="email_ricky" href="mailto:rickydlgd.dev@gmail.com">Ricardo Delgado</a></p>
+    <p lang="es-MX" class="created_by">Creado por <a class="visit_my_portfolio" href="https://www.rickydlgd.com/" target="_blank" rel="noreferrer">Ricardo Delgado</a></p>
 </footer>
 
 <style>
@@ -336,8 +336,12 @@
         font-size: 10px;
     }
 
-    .email_ricky:hover {
-        color: #20DCE8;
+    .visit_my_portfolio {
         text-decoration: underline;
+        text-decoration-color: #fff;
+    }
+
+    .visit_my_portfolio:hover {
+        color: #20DCE8;
     }
 </style>
