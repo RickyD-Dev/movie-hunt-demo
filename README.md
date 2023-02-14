@@ -8,6 +8,10 @@ _This product uses the TMDB API but is not endorsed or certified by TMDB._
 
 You can visit TMDB here: [The Movie DB](https://www.themoviedb.org/ "The Movie Db's Homepage")
 
+_JustWatch data provided by the TMDB API is also used to provide renting/streaming providers._
+
+You can visit JustWatch here: [JustWatch](https://www.justwatch.com/ "JustWatch Homepage")
+
 ## Browse through Genres 🎥
 
 If you're undecided on what movie to watch, browse through 19 different genres of movies to find one that matches the mood!

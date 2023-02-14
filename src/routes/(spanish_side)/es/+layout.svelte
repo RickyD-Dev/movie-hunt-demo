@@ -327,6 +327,7 @@
     .logo_a {
         width: 100%;
         text-align: center;
+        max-width: 100px;
     }
 
     .attribution_logo {
