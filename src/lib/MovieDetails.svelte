@@ -12,7 +12,7 @@
 
     let newReleaseDateFormat;
 
-    const currentReleaseDateFormat =  new Date(movieDetails.release_date);
+    const currentReleaseDateFormat = new Date(movieDetails.release_date);
 
     let dateFormatting;
 
@@ -167,9 +167,9 @@
                 </div>
             </div>
             {#if $page.url.pathname.includes("/es")}
-                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Visite TMDB para obtener más información</a></p>
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US" target="_blank" rel="noreferrer">También puedes visitar TMDB para obtener más información</a></p>
             {:else}
-                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US">Please visit TMDB for more info</a></p>
+                <p class="tmdb_providers_link"><a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US" target="_blank" rel="noreferrer">You can also visit TMDB for more info</a></p>
             {/if}
         {/if}
         <hr />
@@ -190,8 +190,6 @@
                 {/if}
             {/if}
         </div>
-
-        <!-- Idea for adding trailers to movie details. Just need to add fetch request for the videos within the server.js file. -->
     </div>
 </div>
 
@@ -305,10 +303,10 @@
     }
 
     .release_streaming_container {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        gap: 0px 90px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 1fr;
+        gap: 0px 20px;
         width: 100%;
         max-width: 520px;
     }
@@ -358,19 +356,23 @@
         flex-direction: column;
     }
 
-    .tmdb_providers_link {
+    .find_out_more {
         text-decoration: underline;
+        text-decoration-color: #20DCE8;
+    }
+
+    .tmdb_providers_link {
         text-align: center;
+    }
+
+    .tmdb_providers_link a {
+        text-decoration: underline;
+        text-decoration-color: #20DCE8;
     }
 
     .tmdb_providers_link a:hover {
         text-decoration: underline;
-        text-decoration-color: #20DCE8;
-    }
-
-    .find_out_more {
-        text-decoration: underline;
-        text-decoration-color: #20DCE8;
+        text-decoration-color: #fff;
     }
 
     .details_container {

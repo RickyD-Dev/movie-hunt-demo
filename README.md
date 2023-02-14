@@ -16,6 +16,6 @@ If you're undecided on what movie to watch, browse through 19 different genres o
 
 If the Genres section doesn't have what you're looking for, try searching for key words directly within the Search section!
 
-## View the site in Spanish! 🇲🇽
+## View the site in Spanish (es-MX)! 🇲🇽
 
 A toggle on the top-right of the site can be clicked/tapped to change the text and most of the content provided by the TMDB API to Spanish! The toggle has the 'EN' option on by default for English and you can switch to 'ES' for Spanish.

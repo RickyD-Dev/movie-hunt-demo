@@ -36,22 +36,6 @@
                 goto(`/es/buscar/${titleSearched}&p%C3%A1gina=${searchPage}/detalles/${movieNum}`);
             }
         }, 300);
-
-        // if ($page.url.pathname === "/") {
-        //     goto("/es");
-        // } else if ($page.url.pathname === "/genre") {
-        //     goto("/es/g%C3%A9nero");
-        // } else if ($page.url.pathname === `/genre/${genreChosen}&page=${genreChosenPage}`) {
-        //     goto(`/es/g%C3%A9nero/${genreChosen}&p%C3%A1gina=${genreChosenPage}`);
-        // } else if ($page.url.pathname === `/genre/${genreChosen}&page=${genreChosenPage}/details/${movieNum}`) {
-        //     goto(`/es/g%C3%A9nero/${genreChosen}&p%C3%A1gina=${genreChosenPage}/detalles/${movieNum}`);
-        // } else if ($page.url.pathname === "/search") {
-        //     goto("/es/buscar");
-        // } else if ($page.url.pathname === `/search/${titleSearched}&page=${searchPage}`) {
-        //     goto(`/es/buscar/${titleSearched}&p%C3%A1gina=${searchPage}`);
-        // } else if ($page.url.pathname === `/search/${titleSearched}&page=${searchPage}/details/${movieNum}`) {
-        //     goto(`/es/buscar/${titleSearched}&p%C3%A1gina=${searchPage}/detalles/${movieNum}`);
-        // }
     };
 </script>
 
@@ -88,17 +72,23 @@
 <slot></slot>
 
 <footer class="footer_container">
-    <div class="copyright_coffee_container">
-        <p lang="en-US" class="copyright_text">Movie Hunt &copy; 2023</p>
-        <a lang="en-US" class="coffee_a" href="https://www.buymeacoffee.com/rickydlgd" title="Buy Rick a Coffee (:" target="_blank" rel="noreferrer"><i class="fa-solid fa-mug-hot"></i></a>
-    </div>
     <div class="attribution_container">
-        <p lang="en-US" class="attribution_text">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
-        <a class="tmdb_logo_a" href="https://www.themoviedb.org/">
-            <img lang="en-US" class="tmdb_logo" src="/images/tmdb_logo2.svg" alt="The Movie Data Base logo">
+        <p lang="en-US" class="attribution_text">This product uses the TMDB API but is not endorsed or certified by TMDB. JustWatch data provided by the TMDB API is also used to provide renting/streaming providers.</p>
+        <a class="logo_a" href="https://www.themoviedb.org/" target="_blank" rel="noreferrer">
+            <img lang="en-US" class="attribution_logo" src="/images/tmdb_logo2.svg" alt="The Movie Data Base logo">
+        </a>
+        <a class="logo_a" href="https://www.justwatch.com/" target="_blank" rel="noreferrer">
+            <img lang="en-US" class="attribution_logo" src="https://www.themoviedb.org/assets/2/v4/logos/justwatch-c2e58adf5809b6871db650fb74b43db2b8f3637fe3709262572553fa056d8d0a.svg" alt="The Just Watch logo">
         </a>
     </div>
-    <p lang="en-US" class="created_by">Created by <a class="visit_my_portfolio" href="https://www.rickydlgd.com/" target="_blank" rel="noreferrer">Ricardo Delgado</a></p>
+    <div class="copyright_container">
+        <p lang="en-US" class="copyright_text">Movie Hunt &copy; 2023</p>
+    </div>
+    <div class="createdBy_coffee_container">
+        <p lang="en-US" class="created_by">Created by <a class="visit_my_portfolio" href="https://www.rickydlgd.com/" target="_blank" rel="noreferrer">Ricardo Delgado</a></p>
+
+        <a lang="en-US" class="coffee_a" href="https://www.buymeacoffee.com/rickydlgd" title="Buy Rick a Coffee (:" target="_blank" rel="noreferrer"><i class="fa-solid fa-mug-hot"></i></a>
+    </div>
 </footer>
 
 <style>
@@ -269,6 +259,8 @@
         text-decoration-color: #fff;
     }
 
+    /* ---------- Footer Styles ---------- */
+
     .footer_container {
         border-top: 1px solid #20DCE8;
         display: flex;
@@ -280,7 +272,7 @@
         width: 100%;
     }
 
-    .copyright_coffee_container {
+    .copyright_container {
         display: flex;
         justify-content: space-between;
         gap: 0px 20px;
@@ -288,6 +280,14 @@
         width: 100%;
         padding-bottom: 5px;
         max-width: 375px;
+    }
+
+    .createdBy_coffee_container {
+        display: flex;
+        justify-content: center;
+        gap: 0px 10px;
+        align-items: center;
+        width: 100%;
     }
 
     .copyright_text {
@@ -299,6 +299,7 @@
     .coffee_a {
         width: 100%;
         text-align: center;
+        max-width: 20px;
     }
 
     .fa-solid {
@@ -306,28 +307,31 @@
     }
 
     .attribution_container {
-        display: flex;
-        justify-content: center;
-        gap: 0px 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 1fr;
+        justify-items: center;
+        gap: 3px;
         align-items: center;
         width: 100%;
-        max-width: 375px;
-        padding-bottom: 15px;
+        max-width: 450px;
     }
 
     .attribution_text {
+        grid-column: 1 / span 2;
         font-size: 10px;
         width: 100%;
         text-align: center;
     }
 
-    .tmdb_logo_a {
+    .logo_a {
         width: 100%;
         text-align: center;
+        max-width: 100px;
     }
 
-    .tmdb_logo {
-        object-fit: cover;
+    .attribution_logo {
+        object-fit: contain;
         width: 100%;
         height: 100%;
         max-width: 80px;
@@ -339,10 +343,10 @@
 
     .visit_my_portfolio {
         text-decoration: underline;
-        text-decoration-color: #fff;
+        text-decoration-color: #20DCE8;
     }
 
     .visit_my_portfolio:hover {
-        color: #20DCE8;
+        color: #fff;
     }
 </style>
