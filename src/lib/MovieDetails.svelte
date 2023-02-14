@@ -4,6 +4,7 @@
     export let movieDetails;
     export let providerDetails;
     export let rentDetails;
+    export let trailerDetails;
 
     function goBack() {
         window.history.go(-1);        
@@ -33,14 +34,13 @@
 </script>
 
 <div class={$page.url.pathname.includes("/genre") || $page.url.pathname.includes("/es/g%C3%A9nero") ? "movie_details_container_genre" : "movie_details_container_search"}>
-    <!-- <button class="details_return_button" on:click={goBack}>← Back to Genres</button> -->
     <div class="button_image_container">
         <button class="details_return_button" on:click={goBack}><i class="fa-solid fa-arrow-left"></i></button>
         {#if movieDetails.poster_path === null}
             <div class="image_unavailable">
                 <img class src="/images/dog.jpg" alt="A cute dog">
                 {#if $page.url.pathname.includes("/es")}
-                    <p><em>Imagen no disponible</em></p>
+                    <p><em>Imagen no está disponible</em></p>
                 {:else}
                     <p><em>Image Unavailable</em></p>
                 {/if}
@@ -54,6 +54,26 @@
     <h1 class="movie_details_title">{movieDetails.title}</h1>
 
     <div class="movieInfo_container">
+        {#await trailerDetails}
+            <p>Trailer Loading...</p>
+        {:then} 
+            {#if trailerDetails[0] === undefined}
+                {#if $page.url.pathname.includes("/es")}
+                    <p><em>Trailer no está disponible</em></p>
+
+                    <hr />
+                {:else}
+                    <p><em>Trailer Unavailable</em></p>
+
+                    <hr />
+                {/if}
+            {:else}
+                <iframe width="100%" height="250px" src="https://www.youtube.com/embed/{trailerDetails[0].key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+                <hr />
+            {/if}
+        {/await}
+
         <div class="release_date">
             {#if $page.url.pathname.includes("/es")}
                 <h4>Fecha de lanzamiento</h4>
@@ -140,9 +160,9 @@
             <div class="streaming_unavailable_container">
                 <div class="renting_platform">
                     {#if $page.url.pathname.includes("/es")}
-                        <p class="stream_unavailable"><em>Renta o transmisión puede estar disponible pronto</em></p>
+                        <p class="stream_unavailable"><em>La información de renta o transmisión no está disponible en este momento, pero puede estar disponible en otros lugares. Configuramos una búsqueda en Google para que <a class="find_out_more" href="https://www.google.com/search?q={movieDetails.title}+(film)" target="_blank" rel="noreferrer" title="{movieDetails.title} google search for streaming providers">obtengas más información</a>.</em></p>
                     {:else}
-                        <p class="stream_unavailable"><em>Stream/Rent may be available soon</em></p>
+                        <p class="stream_unavailable"><em>Stream/Rent info for this title is unavailable at this time but it may be available elsewhere. We set up a google search for you to <a class="find_out_more" href="https://www.google.com/search?q={movieDetails.title}+(film)" target="_blank" rel="noreferrer" title="{movieDetails.title} google search for streaming providers">find out more</a>.</em></p>
                     {/if}
                 </div>
             </div>
@@ -153,14 +173,25 @@
             {/if}
         {/if}
         <hr />
+
         <div class="details_container">
             {#if $page.url.pathname.includes("/es")}
                 <h4>Descripción</h4>
             {:else}
                 <h4>Description</h4>
             {/if}
-            <p>{movieDetails.overview}</p>
+            {#if movieDetails.overview}
+                <p>{movieDetails.overview}</p>
+            {:else}
+                {#if $page.url.pathname.includes("/es")}
+                    <p><em>Descripción no está disponible</em></p>
+                {:else}
+                    <p><em>Description Unavailable</em></p>
+                {/if}
+            {/if}
         </div>
+
+        <!-- Idea for adding trailers to movie details. Just need to add fetch request for the videos within the server.js file. -->
     </div>
 </div>
 
@@ -333,6 +364,11 @@
     }
 
     .tmdb_providers_link a:hover {
+        text-decoration: underline;
+        text-decoration-color: #20DCE8;
+    }
+
+    .find_out_more {
         text-decoration: underline;
         text-decoration-color: #20DCE8;
     }

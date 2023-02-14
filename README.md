@@ -1,38 +1,21 @@
-# create-svelte
+# Movie Hunt 🍿
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Movie Hunt was created to help users find a movie they're interested in and just as quickly find out if & where that movie is streaming and/or where it can be rented.
 
-## Creating a project
+Movie Hunt uses the TMDB (The Movie Data Base) API to request movie genres and also movie details that include their title, poster image, release date, description, streaming/renting providers, and trailer if TMDB has it available.
 
-If you're seeing this, you've probably already done this step. Congrats!
+_This product uses the TMDB API but is not endorsed or certified by TMDB._
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+You can visit TMDB here: [The Movie DB](https://www.themoviedb.org/ "The Movie Db's Homepage)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Browse through Genres 🎥
 
-## Developing
+If you're undecided on what movie to watch, browse through 19 different genres of movies to find one that matches the mood!
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Search for movie titles 🔎
 
-```bash
-npm run dev
+If the Genres section doesn't have what you're looking for, try searching for key words directly within the Search section!
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## View the site in Spanish! 🇲🇽
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+A toggle on the top-right of the site can be clicked/tapped to change the text and most of the content provided by the TMDB API to Spanish! The toggle has the 'EN' option on by default for English and you can switch to 'ES' for Spanish.
