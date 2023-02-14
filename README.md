@@ -6,7 +6,7 @@ Movie Hunt uses the TMDB (The Movie Data Base) API to request movie genres and a
 
 _This product uses the TMDB API but is not endorsed or certified by TMDB._
 
-You can visit TMDB here: [The Movie DB](https://www.themoviedb.org/ "The Movie Db's Homepage)
+You can visit TMDB here: [The Movie DB](https://www.themoviedb.org/ "The Movie Db's Homepage")
 
 ## Browse through Genres 🎥
 
