@@ -13,6 +13,7 @@
         padding-bottom: 15.5rem;
         width: 80%;
         margin: 0 auto;
+        max-width: 700px;
     }
 
     form {
