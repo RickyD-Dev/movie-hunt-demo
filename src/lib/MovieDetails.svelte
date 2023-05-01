@@ -60,17 +60,11 @@
             {#if trailerDetails[0] === undefined}
                 {#if $page.url.pathname.includes("/es")}
                     <p><em>Trailer no está disponible</em></p>
-
-                    <hr />
                 {:else}
                     <p><em>Trailer Unavailable</em></p>
-
-                    <hr />
                 {/if}
             {:else}
                 <iframe width="100%" height="250px" class="movie_trailer" src="https://www.youtube.com/embed/{trailerDetails[0].key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-                <!-- <hr /> -->
             {/if}
         {/await}
 
