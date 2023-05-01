@@ -68,9 +68,9 @@
                     <hr />
                 {/if}
             {:else}
-                <iframe width="100%" height="250px" src="https://www.youtube.com/embed/{trailerDetails[0].key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="100%" height="250px" class="movie_trailer" src="https://www.youtube.com/embed/{trailerDetails[0].key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-                <hr />
+                <!-- <hr /> -->
             {/if}
         {/await}
 
@@ -202,7 +202,7 @@
         border: none;
         height: 1px;
         color: rgb(243, 243, 243);
-        background-color: rgb(243, 243, 243);
+        background-color: rgba(243, 243, 243, 0.2);
         width: 100%;
         margin: 20px 0px;
     }
@@ -299,7 +299,7 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        max-width: 520px;
+        max-width: 800px;
     }
 
     .release_streaming_container {
@@ -311,10 +311,16 @@
         max-width: 520px;
     }
 
+    .movie_trailer {
+        max-width: 520px;
+    }
+
     .release_date {
         display: flex;
         flex-direction: column;
-        align-self: flex-start;
+        align-self: center;
+        padding-top: 20px;
+        text-align: center;
     }
 
     .streaming_platform {
@@ -379,6 +385,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        max-width: 520px;
         justify-content: center;
     }
 </style>
