@@ -1,6 +1,10 @@
 <script>
     import { page } from '$app/stores';
     import { goto } from '$app/navigation';
+    import { dev } from '$app/environment';
+    import { inject } from '@vercel/analytics';
+    
+    inject({ mode: dev ? 'development' : 'production' });
 
     let toggleValue = true;
 
