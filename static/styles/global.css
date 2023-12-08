@@ -6,10 +6,6 @@
 	box-sizing: border-box;
 }
 
-html {
-	scroll-behavior: smooth;
-}
-
 html,
 body {
 	font-family: 'Overpass', sans-serif;
@@ -17,6 +13,10 @@ body {
 	height: 100%;
 	background-color: #000315;
 	color: #fff;
+}
+
+body {
+	scroll-behavior: smooth;
 }
 
 .main_container {
