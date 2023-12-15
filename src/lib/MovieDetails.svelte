@@ -11,6 +11,18 @@
 
 	const currentReleaseDateFormat = new Date(movieDetails.release_date);
 
+	const iframeSrcDoc = `
+    <style>
+      * { padding: 0; margin: 0; overflow: hidden }
+      html, body { height: 100% }
+      img, span { position: absolute; width: 100%; top: 0; bottom: 0; margin: auto }
+      span { height: 1.5em; text-align: center; font: 48px/1.5 sans-serif; color: white; text-shadow: 0 0 0.5em black }
+    </style>
+    <a href='https://www.youtube.com/embed/${trailerDetails[0].key}?autoplay=1'>
+      <img src='https://img.youtube.com/vi/${trailerDetails[0].key}/hqdefault.jpg' alt='Video ${movieDetails.title}'>
+      <span>▶</span>
+    </a>`;
+
 	let dateFormatting;
 
 	if ($page.url.pathname.includes('/es')) {
@@ -82,10 +94,11 @@
 					{/if}
 				{:else}
 					<iframe
+						loading="lazy"
 						width="100%"
-						height="300px"
 						class="movie_trailer"
 						src="https://www.youtube.com/embed/{trailerDetails[0].key}"
+						srcdoc={iframeSrcDoc}
 						title="YouTube video player"
 						frameborder="0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -432,6 +445,15 @@
 	.movie_trailer {
 		max-width: 520px;
 		margin-bottom: 25px;
+		height: 300px;
+	}
+
+	@media screen and (max-width: 500px) {
+		.movie_trailer {
+			max-width: 520px;
+			margin-bottom: 25px;
+			height: 200px;
+	}
 	}
 
 	.release_rating_container {
