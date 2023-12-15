@@ -163,7 +163,7 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        gap: 3px;
+        gap: 7px;
     }
 
     .page_item {
