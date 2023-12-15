@@ -19,6 +19,35 @@ body {
 	scroll-behavior: smooth;
 }
 
+@font-face {
+	font-family: 'Overpass';
+	font-style: normal;
+	font-weight: 200;
+	font-display: swap;
+	src: url(https://fonts.gstatic.com/l/font?kit=qFdH35WCmI96Ajtm82GnWdzCwi1Oq3sYF5TuH52_jPSVl-UEdfhf-gh-xOWbR7F4bBwU-PxRE-4XfN9JVMkWONsPdDoNTobQKkHfOGQRHSpV84ALrUZgrEdeVw&skey=f20a355e8a5d18ab&v=v13) format('woff2');
+  }
+  @font-face {
+	font-family: 'Overpass';
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: url(https://fonts.gstatic.com/l/font?kit=qFdH35WCmI96Ajtm82GnWdzCwi1Oq3sYF5TuH52_jPSVl-UEdfhf-gh-xOWbR7F4bBwU-PxRE-4XfN9JVMkWONsPdDoNTobQKkHfOGQRHSpV84ALrUZgrEdeVw&skey=f20a355e8a5d18ab&v=v13) format('woff2');
+  }
+  @font-face {
+	font-family: 'Overpass';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(https://fonts.gstatic.com/l/font?kit=qFdH35WCmI96Ajtm82GnWdzCwi1Oq3sYF5TuH52_jPSVl-UEdfhf-gh-xOWbR7F4bBwU-PxRE-4XfN9JVMkWONsPdDoNTobQKkHfOGQRHSpV84ALrUZgrEdeVw&skey=f20a355e8a5d18ab&v=v13) format('woff2');
+  }
+  @font-face {
+	font-family: 'Yellowtail';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(https://fonts.gstatic.com/l/font?kit=OZpGg_pnoDtINPfRIlLotlnNxkD_Rc_9mFQ30ltgHUMjY827o_rfmczkOlcPVhsuB_BYwpI33-pzOoUaoSJ08J0jc1H0lGMijpy_tBAkIVBBCmVmo_uhO2mc-BBz&skey=22fa7c6bface696b&v=v22) format('woff2');
+  }
+
 .main_container {
 	display: flex;
 	flex-direction: column;
