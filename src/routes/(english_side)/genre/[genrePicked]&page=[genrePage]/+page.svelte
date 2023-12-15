@@ -36,7 +36,6 @@
     </div>
 
     <div class="pagination_container">
-        <!-- PAGINATION SECTION -->
         <ul class="pagination_list">
             <li>
                 {#if activePage === 1}
@@ -88,7 +87,6 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        /* padding-bottom: 2.5rem; */
     }
 
     .genre_movies_list {

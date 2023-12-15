@@ -22,15 +22,6 @@ export async function load({ params, fetch }) {
 
         const fetchedSearch = searchData.results;
 
-        // const filteredFetchedSearch = (arr) => {
-        //     const required = arr.filter(el => {
-        //         return el.poster_path;
-        //     });
-        //     return required;
-        // };
-
-        // const newSearch = filteredFetchedSearch(fetchedSearch);
-
         const searchCurrentPage = searchData.page.toString();
         const searchAllPages = searchData.total_pages.toString();
         const totalSearchResults = searchData.total_results.toString();

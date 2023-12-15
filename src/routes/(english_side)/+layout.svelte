@@ -60,7 +60,6 @@
                 <nav>
                     <ul class="nav-list">
                         {#if $page.url.pathname.includes("/genre")}
-                            <!-- <li lang="en-US" class="nav-item"><i class="fa-solid fa-arrow-left" /></li> -->
                             <li lang="en-US" class="nav-item genres selected"><a href="/genre">Genres</a></li>
                             <li lang="en-US" class="nav-item search"><a href="/search">Search</a></li>
                         {:else if $page.url.pathname.includes("/search")}

@@ -36,7 +36,6 @@
     </div>
 
     <div class="pagination_container">
-        <!-- PAGINATION SECTION -->
         <ul class="pagination_list">
             <li>
                 {#if activePage === 1}

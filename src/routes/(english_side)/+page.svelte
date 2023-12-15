@@ -24,7 +24,6 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		/* padding-bottom: 7rem; */
 		width: 100%;
 	}
 
