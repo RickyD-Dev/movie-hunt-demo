@@ -15,7 +15,7 @@
 
 	let newReleaseDateFormat;
 
-	const currentReleaseDateFormat = new Date(movieDetails.release_date);
+	const currentReleaseDateFormat = new Date(movieDetails.release_rating_container);
 
 	let dateFormatting;
 
@@ -41,7 +41,7 @@
 		? 'movie_details_container_genre'
 		: 'movie_details_container_search'}
 >
-	<div class="button_image_container">
+	<div class="all_movie_details_container">
 		{#if movieDetails.poster_path === null}
 			<div class="image_unavailable">
 				<img class src="/images/dog.jpg" alt="A cute dog" />
@@ -58,11 +58,11 @@
 		{/if}
 
 		<div class="movie_details_wrapper">
-			<div class="title_rating_container">
+			<div class="title_container">
 				<h2 class="movie_details_title">{movieDetails.title}</h2>
 			</div>
 
-			<div class="release_date">
+			<div class="release_rating_container">
 				{#if movieRating === undefined}
 					<h6 class="movie_rating_unavailable">Unavailable</h6>
 				{:else}
@@ -115,7 +115,7 @@
 				{/if}
 			</div>
 
-			<div class="movieInfo_container">
+			<div class="movie_rent_streaming_container">
 				{#if providerDetails != null && rentDetails != null}
 					<div class="release_streaming_container">
 						<div class="renting_platform">
@@ -297,7 +297,7 @@
 		padding: 0px 15px 2.5rem;
 	}
 
-	.button_image_container {
+	.all_movie_details_container {
 		display: flex;
 		max-width: 1200px;
 		justify-content: center;
@@ -307,7 +307,7 @@
 	}
 
 	@media screen and (max-width: 767px) {
-		.button_image_container {
+		.all_movie_details_container {
 			flex-direction: column;
 			align-items: center;
 			gap: 16px;
@@ -327,7 +327,7 @@
 		}
 	}
 
-	.title_rating_container {
+	.title_container {
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
@@ -414,7 +414,7 @@
 		}
 	}
 
-	.movieInfo_container {
+	.movie_rent_streaming_container {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -440,7 +440,7 @@
 		margin-bottom: 25px;
 	}
 
-	.release_date {
+	.release_rating_container {
 		display: flex;
 		margin-bottom: 25px;
 		padding-left: 3px;
