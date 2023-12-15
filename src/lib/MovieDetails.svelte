@@ -1,11 +1,11 @@
 <script>
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 
 	export let movieDetails;
 	export let providerDetails;
 	export let rentDetails;
 	export let trailerDetails;
+	export let movieRating;
 
 	
 
@@ -43,9 +43,9 @@
 		: 'movie_details_container_search'}
 >
 	<div class="button_image_container">
-		<button class="details_return_button" on:click={goBack}
+		<!-- <button class="details_return_button" on:click={goBack}
 			><i class="fa-solid fa-arrow-left" /></button
-		>
+		> -->
 		{#if movieDetails.poster_path === null}
 			<div class="image_unavailable">
 				<img class src="/images/dog.jpg" alt="A cute dog" />
@@ -60,207 +60,224 @@
 				<img src="http://image.tmdb.org/t/p/w500/{movieDetails.poster_path}" alt="" />
 			</div>
 		{/if}
-	</div>
-	<h1 class="movie_details_title">{movieDetails.title}</h1>
 
-	<div class="movieInfo_container">
-		{#await trailerDetails}
-			<p>Trailer Loading...</p>
-		{:then}
-			{#if trailerDetails[0] === undefined}
-				{#if $page.url.pathname.includes('/es')}
-					<p><em>Trailer no está disponible</em></p>
+		<div class="movie_details_wrapper">
+			<div class="title_rating_container">
+				<h2 class="movie_details_title">{movieDetails.title}</h2>
+			</div>
+
+			<div class="release_date">
+				{#if movieRating === undefined}
+					<h6 class="movie_rating_unavailable">Unavailable</h6>
 				{:else}
-					<p><em>Trailer Unavailable</em></p>
+					<div class="movie_rating_container">
+						<h6 class="movie_rating">{movieRating}</h6>
+					</div>
 				{/if}
-			{:else}
-				<iframe
-					width="100%"
-					height="250px"
-					class="movie_trailer"
-					src="https://www.youtube.com/embed/{trailerDetails[0].key}"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					allowfullscreen
-				/>
-			{/if}
-		{/await}
 
-		<div class="release_date">
-			{#if $page.url.pathname.includes('/es')}
-				<h4>Fecha de lanzamiento</h4>
-			{:else}
-				<h4>Release Date</h4>
-			{/if}
-			<p>{newReleaseDateFormat}</p>
-		</div>
-		<hr />
-		{#if providerDetails != null && rentDetails != null}
-			<div class="release_streaming_container">
-				<div class="renting_platform">
-					{#if $page.url.pathname.includes('/es')}
-						<h4>Rentar</h4>
-					{:else}
-						<h4>Rent</h4>
-					{/if}
-					<div class="renting_details_container">
-						{#each rentDetails as rent}
-							<p class="stream_item">{rent.provider_name}</p>
-						{/each}
-					</div>
-				</div>
+				<!-- {#if $page.url.pathname.includes('/es')}
+					<h4>Fecha de lanzamiento</h4>
+				{:else}
+					<h4>Release Date</h4>
+				{/if} -->
+				<p>{newReleaseDateFormat}</p>
+			</div>
 
-				<div class="streaming_platform">
+			{#await trailerDetails}
+				<p>Trailer Loading...</p>
+			{:then}
+				{#if trailerDetails[0] === undefined}
 					{#if $page.url.pathname.includes('/es')}
-						<h4>Transmitir</h4>
-					{:else}
-						<h4>Stream</h4>
-					{/if}
-					<div class="streaming_details_container">
-						{#each providerDetails as provider}
-							<p class="stream_item">{provider.provider_name}</p>
-						{/each}
+					<div class="trailer_unavailable">
+						<p><em>Trailer no está disponible</em></p>
 					</div>
-				</div>
-			</div>
-			{#if $page.url.pathname.includes('/es')}
-				<p class="tmdb_providers_link">
-					<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						>Visite TMDB para obtener más información</a
-					>
-				</p>
-			{:else}
-				<p class="tmdb_providers_link">
-					<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						>Please visit TMDB for more info</a
-					>
-				</p>
-			{/if}
-		{:else if providerDetails != null && rentDetails === null}
-			<div class="release_streaming_container">
-				<div class="streaming_platform">
-					{#if $page.url.pathname.includes('/es')}
-						<h4>Transmitir</h4>
 					{:else}
-						<h4>Stream</h4>
+						<div class="trailer_unavailable">
+							<p><em>Trailer Unavailable</em></p>
+						</div>
 					{/if}
-					<div class="streaming_details_container">
-						{#each providerDetails as provider}
-							<p class="stream_item">{provider.provider_name}</p>
-						{/each}
-					</div>
-				</div>
+				{:else}
+					<iframe
+						width="100%"
+						height="300px"
+						class="movie_trailer"
+						src="https://www.youtube.com/embed/{trailerDetails[0].key}"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen
+					/>
+				{/if}
+			{/await}
+	
+			<div class="details_container">
+				{#if $page.url.pathname.includes('/es')}
+					<h4>Descripción</h4>
+				{:else}
+					<h4>Description</h4>
+				{/if}
+				{#if movieDetails.overview}
+					<p>{movieDetails.overview}</p>
+				{:else if $page.url.pathname.includes('/es')}
+					<p><em>Descripción no está disponible</em></p>
+				{:else}
+					<p><em>Description Unavailable</em></p>
+				{/if}
 			</div>
-			{#if $page.url.pathname.includes('/es')}
-				<p class="tmdb_providers_link">
-					<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						>Visite TMDB para obtener más información</a
-					>
-				</p>
-			{:else}
-				<p class="tmdb_providers_link">
-					<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						>Please visit TMDB for more info</a
-					>
-				</p>
-			{/if}
-		{:else if providerDetails === null && rentDetails != null}
-			<div class="release_streaming_container">
-				<div class="renting_platform">
-					{#if $page.url.pathname.includes('/es')}
-						<h4>Rentar</h4>
-					{:else}
-						<h4>Rent</h4>
-					{/if}
-					<div class="renting_details_container">
-						{#each rentDetails as rent}
-							<p class="stream_item">{rent.provider_name}</p>
-						{/each}
+
+			<div class="movieInfo_container">
+				<!-- <hr /> -->
+				{#if providerDetails != null && rentDetails != null}
+					<div class="release_streaming_container">
+						<div class="renting_platform">
+							{#if $page.url.pathname.includes('/es')}
+								<h4>Rentar</h4>
+							{:else}
+								<h4>Rent</h4>
+							{/if}
+							<div class="renting_details_container">
+								{#each rentDetails as rent}
+									<p class="stream_item">{rent.provider_name}</p>
+								{/each}
+							</div>
+						</div>
+		
+						<div class="streaming_platform">
+							{#if $page.url.pathname.includes('/es')}
+								<h4>Transmitir</h4>
+							{:else}
+								<h4>Stream</h4>
+							{/if}
+							<div class="streaming_details_container">
+								{#each providerDetails as provider}
+									<p class="stream_item">{provider.provider_name}</p>
+								{/each}
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			{#if $page.url.pathname.includes('/es')}
-				<p class="tmdb_providers_link">
-					<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						>Visite TMDB para obtener más información</a
-					>
-				</p>
-			{:else}
-				<p class="tmdb_providers_link">
-					<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						>Please visit TMDB for more info</a
-					>
-				</p>
-			{/if}
-		{:else if providerDetails === null && rentDetails === null}
-			<div class="streaming_unavailable_container">
-				<div class="renting_platform">
 					{#if $page.url.pathname.includes('/es')}
-						<p class="stream_unavailable">
-							<em
-								>La información de renta o transmisión no está disponible en este momento, pero
-								puede estar disponible en otros lugares. Configuramos una búsqueda en Google para
-								que <a
-									class="find_out_more"
-									href="https://www.google.com/search?q={movieDetails.title}+(film)"
-									target="_blank"
-									rel="noreferrer"
-									title="{movieDetails.title} google search for streaming providers"
-									>obtengas más información</a
-								>.</em
+						<p class="tmdb_providers_link">
+							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								>Visite TMDB para obtener más información</a
 							>
 						</p>
 					{:else}
-						<p class="stream_unavailable">
-							<em
-								>Stream/Rent info for this title is unavailable at this time but it may be available
-								elsewhere. We set up a google search for you to <a
-									class="find_out_more"
-									href="https://www.google.com/search?q={movieDetails.title}+(film)"
-									target="_blank"
-									rel="noreferrer"
-									title="{movieDetails.title} google search for streaming providers"
-									>find out more</a
-								>.</em
+						<p class="tmdb_providers_link">
+							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								>Please visit TMDB for more info</a
 							>
 						</p>
 					{/if}
-				</div>
+				{:else if providerDetails != null && rentDetails === null}
+					<div class="release_streaming_container">
+						<div class="streaming_platform">
+							{#if $page.url.pathname.includes('/es')}
+								<h4>Transmitir</h4>
+							{:else}
+								<h4>Stream</h4>
+							{/if}
+							<div class="streaming_details_container">
+								{#each providerDetails as provider}
+									<p class="stream_item">{provider.provider_name}</p>
+								{/each}
+							</div>
+						</div>
+						{#if $page.url.pathname.includes('/es')}
+							<p class="tmdb_providers_link">
+								<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+									>Visite TMDB para obtener más información</a
+								>
+							</p>
+						{:else}
+							<p class="tmdb_providers_link">
+								<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+									>Please visit TMDB for more info</a
+								>
+							</p>
+						{/if}
+					</div>
+				{:else if providerDetails === null && rentDetails != null}
+					<div class="release_streaming_container">
+						<div class="renting_platform">
+							{#if $page.url.pathname.includes('/es')}
+								<h4>Rentar</h4>
+							{:else}
+								<h4>Rent</h4>
+							{/if}
+							<div class="renting_details_container">
+								{#each rentDetails as rent}
+									<p class="stream_item">{rent.provider_name}</p>
+								{/each}
+							</div>
+						</div>
+					</div>
+					{#if $page.url.pathname.includes('/es')}
+						<p class="tmdb_providers_link">
+							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								>Visite TMDB para obtener más información</a
+							>
+						</p>
+					{:else}
+						<p class="tmdb_providers_link">
+							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								>Please visit TMDB for more info</a
+							>
+						</p>
+					{/if}
+				{:else if providerDetails === null && rentDetails === null}
+					<div class="streaming_unavailable_container">
+						<div class="renting_platform">
+							{#if $page.url.pathname.includes('/es')}
+								<p class="stream_unavailable">
+									<em
+										>* La información de renta o transmisión no está disponible en este momento, pero
+										puede estar disponible en otros lugares. Configuramos una búsqueda en Google para
+										que <a
+											class="find_out_more"
+											href="https://www.google.com/search?q={movieDetails.title}+(film)"
+											target="_blank"
+											rel="noreferrer"
+											title="{movieDetails.title} google search for streaming providers"
+											>obtengas más información</a
+										>.</em
+									>
+								</p>
+							{:else}
+								<p class="stream_unavailable">
+									<em
+										>* Stream/Rent info for this title is unavailable at this time but it may be available
+										elsewhere. We set up a Google search for you to <a
+											class="find_out_more"
+											href="https://www.google.com/search?q={movieDetails.title}+(film)"
+											target="_blank"
+											rel="noreferrer"
+											title="{movieDetails.title} google search for streaming providers"
+											>find out more</a
+										>.</em
+									>
+								</p>
+							{/if}
+						</div>
+					</div>
+					{#if $page.url.pathname.includes('/es')}
+						<p class="tmdb_providers_link">
+							<a
+								href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								target="_blank"
+								rel="noreferrer">También puedes visitar TMDB para obtener más información</a
+							>
+						</p>
+					{:else}
+						<p class="tmdb_providers_link">
+							<a
+								href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								target="_blank"
+								rel="noreferrer">You can also visit TMDB for more info</a
+							>
+						</p>
+					{/if}
+				{/if}
 			</div>
-			{#if $page.url.pathname.includes('/es')}
-				<p class="tmdb_providers_link">
-					<a
-						href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						target="_blank"
-						rel="noreferrer">También puedes visitar TMDB para obtener más información</a
-					>
-				</p>
-			{:else}
-				<p class="tmdb_providers_link">
-					<a
-						href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-						target="_blank"
-						rel="noreferrer">You can also visit TMDB for more info</a
-					>
-				</p>
-			{/if}
-		{/if}
-		<hr />
-
-		<div class="details_container">
-			{#if $page.url.pathname.includes('/es')}
-				<h4>Descripción</h4>
-			{:else}
-				<h4>Description</h4>
-			{/if}
-			{#if movieDetails.overview}
-				<p>{movieDetails.overview}</p>
-			{:else if $page.url.pathname.includes('/es')}
-				<p><em>Descripción no está disponible</em></p>
-			{:else}
-				<p><em>Description Unavailable</em></p>
-			{/if}
 		</div>
 	</div>
 </div>
@@ -286,7 +303,7 @@
 		align-items: center;
 		width: 100%;
 		position: relative;
-		bottom: 60px;
+		bottom: 62px;
 		padding: 0px 15px;
 	}
 
@@ -302,14 +319,46 @@
 
 	.button_image_container {
 		display: flex;
-		width: 100%;
-		max-width: 500px;
+		/* width: 100%; */
+		max-width: 1200px;
 		justify-content: center;
+		align-items: flex-start;
 		padding-bottom: 15px;
-		margin-right: 40px;
+		gap: 50px;
+		/* margin-right: 40px; */
+	}
+
+	@media screen and (max-width: 767px) {
+		.button_image_container {
+			flex-direction: column;
+			align-items: center;
+			gap: 16px;
+		}
+	}
+
+	.movie_details_wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
+	}
+
+	@media screen and (max-width: 767px) {
+		.movie_details_wrapper {
+			align-items: center;
+		}
+	}
+
+	.title_rating_container {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin-bottom: 5px;
+		/* margin-bottom: 25px; */
 	}
 
 	.details_return_button {
+		display: none;
 		cursor: pointer;
 		position: relative;
 		left: -9%;
@@ -351,25 +400,81 @@
 	}
 
 	.details_poster_container {
-		width: 55%;
-		max-width: 270px;
+		width: 100%;
+		max-width: 300px;
 	}
 
 	.details_poster_container img {
+		border: 1px solid #2cbfc9;
 		width: 100%;
 		height: auto;
 	}
 
+	.movie_rating_unavailable {
+		display: none;
+	}
+
+	.movie_rating_container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.movie_rating_container::after {
+		display: inline-block;
+		margin: 0 .5rem .2rem;
+		content: "";
+		font-size: 1rem;
+		line-height: .5rem;
+		padding: 1px;
+		border-radius: 50%;
+		vertical-align: middle;
+		background-color: #fff;
+	}
+
+	.movie_rating {
+		background-color: #f1f1f1;
+		color: #000315;
+		display: block;
+		font-weight: 400;
+		font-size: 0.9rem;
+		border-radius: 2px;
+		/* margin-left: 0.25rem; */
+		padding: 3px 5px 0px;
+		position: relative;
+		bottom: 2.5px;
+	}
+
+	/* .movie_details_title::after {
+		display: inline-block;
+		margin: 0 .5rem .2rem;
+		content: "";
+		font-size: 1rem;
+		line-height: .5rem;
+		padding: 1px;
+		border-radius: 50%;
+		vertical-align: middle;
+		background-color: #fff;
+	} */
+
 	.movie_details_title {
-		font-weight: 200;
-		text-align: center;
-		padding-bottom: 30px;
+		font-size: 3rem;
+		font-weight: 400;
+		/* text-align: center; */
+		/* padding-right: 20px; */
+	}
+
+	@media screen and (max-width: 767px) {
+		.movie_details_title {
+			font-size: 2.3rem;
+			text-align: center;
+		}
 	}
 
 	.movieInfo_container {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 		width: 100%;
 		max-width: 800px;
 	}
@@ -383,16 +488,23 @@
 		max-width: 520px;
 	}
 
+	.trailer_unavailable {
+		display: none;
+	}
+
 	.movie_trailer {
 		max-width: 520px;
+		margin-bottom: 25px;
 	}
 
 	.release_date {
 		display: flex;
-		flex-direction: column;
-		align-self: center;
-		padding-top: 20px;
-		text-align: center;
+		/* flex-direction: column; */
+		margin-bottom: 25px;
+		padding-left: 3px;
+		/* align-self: center; */
+		/* padding-top: 20px; */
+		/* text-align: center; */
 	}
 
 	.streaming_platform {
@@ -411,7 +523,7 @@
 	}
 
 	.stream_unavailable {
-		text-align: center;
+		/* text-align: center; */
 		width: 100%;
 	}
 
@@ -439,9 +551,14 @@
 		text-decoration-color: #20dce8;
 	}
 
-	.tmdb_providers_link {
-		text-align: center;
+	.find_out_more:hover {
+		text-decoration: underline;
+		text-decoration-color: #fff;
 	}
+
+	/* .tmdb_providers_link {
+		text-align: center;
+	} */
 
 	.tmdb_providers_link a {
 		text-decoration: underline;
@@ -459,5 +576,6 @@
 		width: 100%;
 		max-width: 520px;
 		justify-content: center;
+		margin-bottom: 25px;
 	}
 </style>

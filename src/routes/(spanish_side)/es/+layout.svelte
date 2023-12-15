@@ -89,7 +89,7 @@
         <p lang="es-MX" class="copyright_text">Movie Hunt &copy; 2023</p>
     </div>
     <div class="createdBy_coffee_container">
-        <p lang="es-MX" class="created_by">Creado por <a class="visit_my_portfolio" href="https://www.rickydlgd.com/" target="_blank" rel="noreferrer">Ricardo Delgado</a></p>
+        <p lang="es-MX" class="created_by">Creado por <a class="visit_my_portfolio" href="https://www.rickydlgd.com/" target="_blank" rel="noreferrer">ricky</a></p>
 
         <a lang="es-MX" class="coffee_a" href="https://www.buymeacoffee.com/rickydlgd" title="Buy Rick a Coffee (:" target="_blank" rel="noreferrer"><i class="fa-solid fa-mug-hot"></i></a>
     </div>
@@ -179,7 +179,7 @@
     .logo-container {
         display: block;
         position: relative;
-        padding: 40px 0px 20px;
+        padding: 40px 0px 0px;
         width: 100%;
         max-width: 800px;
         text-align: center;
@@ -223,7 +223,7 @@
         width: 100%;
         max-width: 850px;
         padding: 10px 0px;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         z-index: 2;
     }
 
@@ -250,6 +250,10 @@
         font-size: 1.35em;
     }
 
+    .nav-item a {
+        transition: all 150ms ease-in-out;
+    }
+
     .nav-item a:hover {
         color: #2cbfc9;
     }
@@ -272,6 +276,7 @@
         align-items: center;
         justify-content: center;
         padding: 12px 16px;
+        margin-top: 2.5rem;
         position: relative;
         width: 100%;
     }
@@ -304,6 +309,8 @@
         width: 100%;
         text-align: center;
         max-width: 20px;
+        position: relative;
+        bottom: 1px;
     }
 
     .fa-solid {

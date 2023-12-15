@@ -1,23 +1,35 @@
-<div class="home_main_container">
-    <h1 lang="es-MX" class="home_title">Descubre dónde puedes ver tus películas favoritas.</h1>
-    
-    <div class="explore_button_container">
-        <a lang="es-MX" class="explore_link" href="/es/género"><span>Comenzar</span></a>
+<div class="wrapper">
+    <div class="home_main_container">
+        <h1 lang="es-MX" class="home_title">Descubre dónde puedes ver tus películas favoritas.</h1>
+        
+        <div class="explore_button_container">
+            <a lang="es-MX" class="explore_link" href="/es/género"><span>Comenzar</span></a>
+        </div>
     </div>
 </div>
 
 <style>
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
     .home_main_container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-bottom: 7rem;
+        /* padding-bottom: 7rem; */
         width: 100%;
     }
 
     .home_title {
-        padding: 40px 16px;
+        padding: 0px 16px;
         font-size: 34px;
         font-weight: 300;
         text-align: center;
@@ -42,7 +54,7 @@
         font-size: 18px;
         font-weight: 200;
         width: 80%;
-        max-width: 360px;
+        max-width: 200px;
         height: 40px;
         display: flex;
         justify-content: center;

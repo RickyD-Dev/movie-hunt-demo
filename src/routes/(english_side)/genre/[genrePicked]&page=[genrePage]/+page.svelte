@@ -88,7 +88,7 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        padding-bottom: 2.5rem;
+        /* padding-bottom: 2.5rem; */
     }
 
     .genre_movies_list {
@@ -104,9 +104,15 @@
         max-width: 1180px;
     }
 
-    @media screen and (min-width: 660px) and (orientation: landscape) {
+    @media screen and (min-width: 768px) {
         .genre_movies_list {
             grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media screen and (min-width: 620px) and (max-width: 767px) {
+        .genre_movies_list {
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 
@@ -165,7 +171,7 @@
     .page_item {
         display: flex;
         justify-content: center;
-        padding: 5px;
+        padding: 4px 5px 0px;
         width: 100%;
         cursor: pointer;
     }
@@ -177,11 +183,12 @@
     .active {
         display: flex;
         justify-content: center;
-        padding: 5px;
+        padding: 4px 5px 0px;
         width: 100%;
         background-color: #2cbfc9;
         cursor: pointer;
         color: #000;
+        border-radius: 2px;
     }
 
     .inactive {

@@ -1,60 +1,72 @@
-<div class="home_main_container">
-    <h1 lang="en-US" class="home_title">Find out where your favorite movies are streaming.</h1>
+<div class="wrapper">
+	<div class="home_main_container">
+		<h1 lang="en-US" class="home_title">Find out where your favorite movies are streaming.</h1>
 
-    <div class="explore_button_container">
-        <a lang="en-US" class="explore_link" href="/genre"><span>Explore</span></a>
-    </div>
+		<div class="explore_button_container">
+			<a lang="en-US" class="explore_link" href="/genre"><span>Explore</span></a>
+		</div>
+	</div>
 </div>
 
 <style>
-    .home_main_container {
+    .wrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-bottom: 7rem;
+        position: absolute;
+        height: 100%;
         width: 100%;
     }
 
-    .home_title {
-        padding: 40px 16px;
-        font-size: 34px;
-        font-weight: 300;
-        text-align: center;
-        width: 100%;
-        max-width: 500px;
-    }
+	.home_main_container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		/* padding-bottom: 7rem; */
+		width: 100%;
+	}
 
-    .explore_button_container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        padding-top: 20px;
-    }
+	.home_title {
+		padding: 0px 16px;
+		font-size: 34px;
+		font-weight: 300;
+		text-align: center;
+		width: 100%;
+		max-width: 500px;
+	}
 
-    .explore_link {
-        background-color: #000315;
-        color: #fff;
-        border: 2px solid rgba(44, 191, 201, 0.8);
-        border-radius: 50px;
-        font-size: 18px;
-        font-weight: 200;
-        width: 80%;
-        max-width: 360px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 150ms ease-in-out;
-    }
+	.explore_button_container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		padding-top: 20px;
+	}
 
-    .explore_link:hover {
-        background-color: rgba(44, 191, 201, 0.2);
-    }
+	.explore_link {
+		background-color: #000315;
+		color: #fff;
+		border: 2px solid rgba(44, 191, 201, 0.8);
+		border-radius: 50px;
+		font-size: 18px;
+		font-weight: 200;
+		width: 80%;
+		max-width: 200px;
+		height: 40px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		transition: background-color 150ms ease-in-out;
+	}
 
-    .explore_link span {
-        transform: translateY(1px);
-    }
+	.explore_link:hover {
+		background-color: rgba(44, 191, 201, 0.2);
+	}
+
+	.explore_link span {
+		transform: translateY(1px);
+	}
 </style>

@@ -20,7 +20,7 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        padding: 0px 25px 2.5rem;
+        padding: 0px 25px;
     }
 
     .genre_list {
@@ -42,6 +42,10 @@
     .genre-item {
         font-size: 32px;
         padding-bottom: 15px;
+    }
+
+    .genre-item a {
+        transition: all 150ms ease-in-out;
     }
 
     .genre-item a:hover {
