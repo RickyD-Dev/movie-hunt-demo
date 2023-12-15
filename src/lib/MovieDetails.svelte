@@ -182,20 +182,20 @@
 								{/each}
 							</div>
 						</div>
-						{#if $page.url.pathname.includes('/es')}
-							<p class="tmdb_providers_link">
-								<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-									>Visite TMDB para obtener más información</a
-								>
-							</p>
-						{:else}
-							<p class="tmdb_providers_link">
-								<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-									>Please visit TMDB for more info</a
-								>
-							</p>
-						{/if}
 					</div>
+					{#if $page.url.pathname.includes('/es')}
+						<p class="tmdb_providers_link">
+							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								>Visite TMDB para obtener más información</a
+							>
+						</p>
+					{:else}
+						<p class="tmdb_providers_link">
+							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
+								>Please visit TMDB for more info</a
+							>
+						</p>
+					{/if}
 				{:else if providerDetails === null && rentDetails != null}
 					<div class="release_streaming_container">
 						<div class="renting_platform">
