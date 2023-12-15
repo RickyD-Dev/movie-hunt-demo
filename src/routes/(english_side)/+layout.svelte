@@ -300,7 +300,7 @@
     }
 
     .copyright_text {
-        font-size: 10px;
+        font-size: 12px;
         width: 100%;
         text-align: center;
     }
@@ -330,7 +330,7 @@
 
     .attribution_text {
         grid-column: 1 / span 2;
-        font-size: 10px;
+        font-size: 12px;
         width: 100%;
         text-align: center;
     }
@@ -349,7 +349,7 @@
     }
 
     .created_by {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .visit_my_portfolio {
