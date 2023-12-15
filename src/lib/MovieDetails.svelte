@@ -7,15 +7,9 @@
 	export let trailerDetails;
 	export let movieRating;
 
-	
-
-	function goBack() {
-		history.back();
-	}
-
 	let newReleaseDateFormat;
 
-	const currentReleaseDateFormat = new Date(movieDetails.release_rating_container);
+	const currentReleaseDateFormat = new Date(movieDetails.release_date);
 
 	let dateFormatting;
 
