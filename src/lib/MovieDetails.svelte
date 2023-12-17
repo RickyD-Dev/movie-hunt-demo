@@ -1,5 +1,7 @@
 <script>
 	import { page } from '$app/stores';
+	import TrailerPlayer from './TrailerPlayer.svelte';
+	import { onMount } from 'svelte';
 
 	export let movieDetails;
 	export let providerDetails;
@@ -10,18 +12,6 @@
 	let newReleaseDateFormat;
 
 	const currentReleaseDateFormat = new Date(movieDetails.release_date);
-
-	const iframeSrcDoc = `
-    <style>
-      * { padding: 0; margin: 0; overflow: hidden }
-      html, body { height: 100% }
-      img, span { position: absolute; width: 100%; top: 0; bottom: 0; margin: auto }
-      span { height: 1.5em; text-align: center; font: 48px/1.5 sans-serif; color: white; text-shadow: 0 0 0.5em black }
-    </style>
-    <a href='https://www.youtube.com/embed/${trailerDetails[0].key}?autoplay=1'>
-      <img src='https://img.youtube.com/vi/${trailerDetails[0].key}/hqdefault.jpg' alt='Video ${movieDetails.title}'>
-      <span><svg xmlns="http://www.w3.org/2000/svg" height="42" width="38" fill="#fff" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span>
-    </a>`;
 
 	let dateFormatting;
 
@@ -40,6 +30,27 @@
 	} else {
 		newReleaseDateFormat = 'Unavailable';
 	}
+
+	onMount(() => {
+		const videoPlayer = document.getElementById('videoPlayer');
+
+		videoPlayer.addEventListener('click', () => {
+		const iframe = document.createElement('iframe');
+		iframe.setAttribute('src', `https://www.youtube.com/embed/${trailerDetails[0].key}?autoplay=1`);
+		iframe.setAttribute('frameborder', '0');
+		iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+		iframe.setAttribute('allowfullscreen', '');
+
+		iframe.style.position = 'relative';
+		iframe.style.top = '0';
+		iframe.style.left = '0';
+		iframe.style.width = '100%';
+		iframe.style.height = '300px';
+
+		videoPlayer.innerHTML = '';
+		videoPlayer.appendChild(iframe);
+		});
+	});
 </script>
 
 <div
@@ -93,17 +104,12 @@
 						</div>
 					{/if}
 				{:else}
-					<iframe
-						loading="lazy"
-						width="100%"
-						class="movie_trailer"
-						src="https://www.youtube.com/embed/{trailerDetails[0].key}"
-						srcdoc={iframeSrcDoc}
-						title="YouTube video player"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						allowfullscreen
-					/>
+					<!-- <TrailerPlayer trailer_details={trailerDetails} /> -->
+
+					<div id="videoPlayer" class="movie_trailer">
+						<img class="video_thumbnail" src='https://img.youtube.com/vi/{trailerDetails[0].key}/hqdefault.jpg' alt='Video ${movieDetails.title}'>
+						<span class="play_button"><svg xmlns="http://www.w3.org/2000/svg" height="42" width="38" fill="#fff" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span>
+					</div>
 				{/if}
 			{/await}
 	
@@ -443,18 +449,40 @@
 	}
 
 	.movie_trailer {
+		cursor: pointer;
+		position: relative;
 		max-width: 520px;
 		margin-bottom: 25px;
-		height: 300px;
+		/* height: 300px; */
 	}
 
 	@media screen and (max-width: 500px) {
 		.movie_trailer {
+			cursor: pointer;
+			position: relative;
 			max-width: 520px;
 			margin-bottom: 25px;
-			height: 200px;
+			/* height: 200px; */
+		}
 	}
-	}
+
+	.video_thumbnail {
+		position: relative;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+    .play_button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+        position: absolute;
+        width: 100%;
+		top: 0;
+		bottom: 0;
+    }
 
 	.release_rating_container {
 		display: flex;
