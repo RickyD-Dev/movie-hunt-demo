@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import TrailerPlayer from './TrailerPlayer.svelte';
-	import { onMount } from 'svelte';
+	import StreamingDetails from './StreamingDetails.svelte';
 
 	export let movieDetails;
 	export let providerDetails;
@@ -30,27 +30,6 @@
 	} else {
 		newReleaseDateFormat = 'Unavailable';
 	}
-
-	onMount(() => {
-		const videoPlayer = document.getElementById('videoPlayer');
-
-		videoPlayer.addEventListener('click', () => {
-		const iframe = document.createElement('iframe');
-		iframe.setAttribute('src', `https://www.youtube.com/embed/${trailerDetails[0].key}?autoplay=1`);
-		iframe.setAttribute('frameborder', '0');
-		iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-		iframe.setAttribute('allowfullscreen', '');
-
-		iframe.style.position = 'relative';
-		iframe.style.top = '0';
-		iframe.style.left = '0';
-		iframe.style.width = '100%';
-		iframe.style.height = '300px';
-
-		videoPlayer.innerHTML = '';
-		videoPlayer.appendChild(iframe);
-		});
-	});
 </script>
 
 <div
@@ -104,12 +83,7 @@
 						</div>
 					{/if}
 				{:else}
-					<!-- <TrailerPlayer trailer_details={trailerDetails} /> -->
-
-					<div id="videoPlayer" class="movie_trailer">
-						<img class="video_thumbnail" src='https://img.youtube.com/vi/{trailerDetails[0].key}/hqdefault.jpg' alt='Video ${movieDetails.title}'>
-						<span class="play_button"><svg xmlns="http://www.w3.org/2000/svg" height="42" width="38" fill="#fff" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span>
-					</div>
+					<TrailerPlayer trailer_details={trailerDetails} movie_details={movieDetails} />
 				{/if}
 			{/await}
 	
@@ -128,158 +102,7 @@
 				{/if}
 			</div>
 
-			<div class="movie_rent_streaming_container">
-				{#if providerDetails != null && rentDetails != null}
-					<div class="release_streaming_container">
-						<div class="renting_platform">
-							{#if $page.url.pathname.includes('/es')}
-								<h4>Rentar</h4>
-							{:else}
-								<h4>Rent</h4>
-							{/if}
-							<div class="renting_details_container">
-								{#each rentDetails as rent}
-									<p class="stream_item">{rent.provider_name}</p>
-								{/each}
-							</div>
-						</div>
-		
-						<div class="streaming_platform">
-							{#if $page.url.pathname.includes('/es')}
-								<h4>Transmitir</h4>
-							{:else}
-								<h4>Stream</h4>
-							{/if}
-							<div class="streaming_details_container">
-								{#each providerDetails as provider}
-									<p class="stream_item">{provider.provider_name}</p>
-								{/each}
-							</div>
-						</div>
-					</div>
-					{#if $page.url.pathname.includes('/es')}
-						<p class="tmdb_providers_link">
-							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								>Visite TMDB para obtener más información</a
-							>
-						</p>
-					{:else}
-						<p class="tmdb_providers_link">
-							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								>Please visit TMDB for more info</a
-							>
-						</p>
-					{/if}
-				{:else if providerDetails != null && rentDetails === null}
-					<div class="release_streaming_container">
-						<div class="streaming_platform">
-							{#if $page.url.pathname.includes('/es')}
-								<h4>Transmitir</h4>
-							{:else}
-								<h4>Stream</h4>
-							{/if}
-							<div class="streaming_details_container">
-								{#each providerDetails as provider}
-									<p class="stream_item">{provider.provider_name}</p>
-								{/each}
-							</div>
-						</div>
-					</div>
-					{#if $page.url.pathname.includes('/es')}
-						<p class="tmdb_providers_link">
-							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								>Visite TMDB para obtener más información</a
-							>
-						</p>
-					{:else}
-						<p class="tmdb_providers_link">
-							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								>Please visit TMDB for more info</a
-							>
-						</p>
-					{/if}
-				{:else if providerDetails === null && rentDetails != null}
-					<div class="release_streaming_container">
-						<div class="renting_platform">
-							{#if $page.url.pathname.includes('/es')}
-								<h4>Rentar</h4>
-							{:else}
-								<h4>Rent</h4>
-							{/if}
-							<div class="renting_details_container">
-								{#each rentDetails as rent}
-									<p class="stream_item">{rent.provider_name}</p>
-								{/each}
-							</div>
-						</div>
-					</div>
-					{#if $page.url.pathname.includes('/es')}
-						<p class="tmdb_providers_link">
-							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								>Visite TMDB para obtener más información</a
-							>
-						</p>
-					{:else}
-						<p class="tmdb_providers_link">
-							<a href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								>Please visit TMDB for more info</a
-							>
-						</p>
-					{/if}
-				{:else if providerDetails === null && rentDetails === null}
-					<div class="streaming_unavailable_container">
-						<div class="renting_platform">
-							{#if $page.url.pathname.includes('/es')}
-								<p class="stream_unavailable">
-									<em
-										>* La información de renta o transmisión no está disponible en este momento, pero
-										puede estar disponible en otros lugares. Configuramos una búsqueda en Google para
-										que <a
-											class="find_out_more"
-											href="https://www.google.com/search?q={movieDetails.title}+(film)"
-											target="_blank"
-											rel="noreferrer"
-											title="{movieDetails.title} google search for streaming providers"
-											>obtengas más información</a
-										>.</em
-									>
-								</p>
-							{:else}
-								<p class="stream_unavailable">
-									<em
-										>* Stream/Rent info for this title is unavailable at this time but it may be available
-										elsewhere. We set up a Google search for you to <a
-											class="find_out_more"
-											href="https://www.google.com/search?q={movieDetails.title}+(film)"
-											target="_blank"
-											rel="noreferrer"
-											title="{movieDetails.title} google search for streaming providers"
-											>find out more</a
-										>.</em
-									>
-								</p>
-							{/if}
-						</div>
-					</div>
-					{#if $page.url.pathname.includes('/es')}
-						<p class="tmdb_providers_link">
-							<a
-								href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								target="_blank"
-								rel="noreferrer">También puedes visitar TMDB para obtener más información</a
-							>
-						</p>
-					{:else}
-						<p class="tmdb_providers_link">
-							<a
-								href="https://www.themoviedb.org/movie/{movieDetails.id}/watch?locale=US"
-								target="_blank"
-								rel="noreferrer">You can also visit TMDB for more info</a
-							>
-						</p>
-					{/if}
-				{/if}
-			</div>
+			<StreamingDetails provider_details={providerDetails} rent_details={rentDetails} movie_details={movieDetails} />
 		</div>
 	</div>
 </div>
@@ -334,17 +157,17 @@
 		width: 100%;
 	}
 
-	@media screen and (max-width: 767px) {
-		.movie_details_wrapper {
-			align-items: center;
-		}
-	}
-
 	.title_container {
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
 		margin-bottom: 5px;
+	}
+
+	@media screen and (max-width: 767px) {
+		.title_container {
+			align-self: center;
+		}
 	}
 
 	.image_unavailable {
@@ -412,7 +235,7 @@
 		border-radius: 2px;
 		padding: 3px 5px 0px;
 		position: relative;
-		bottom: 2.5px;
+		bottom: 1.5px;
 	}
 
 	.movie_details_title {
@@ -427,62 +250,9 @@
 		}
 	}
 
-	.movie_rent_streaming_container {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		width: 100%;
-		max-width: 800px;
-	}
-
-	.release_streaming_container {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-auto-rows: 1fr;
-		gap: 0px 20px;
-		width: 100%;
-		max-width: 520px;
-	}
-
 	.trailer_unavailable {
 		display: none;
 	}
-
-	.movie_trailer {
-		cursor: pointer;
-		position: relative;
-		max-width: 520px;
-		margin-bottom: 25px;
-		/* height: 300px; */
-	}
-
-	@media screen and (max-width: 500px) {
-		.movie_trailer {
-			cursor: pointer;
-			position: relative;
-			max-width: 520px;
-			margin-bottom: 25px;
-			/* height: 200px; */
-		}
-	}
-
-	.video_thumbnail {
-		position: relative;
-        width: 100%;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-    }
-
-    .play_button {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-        position: absolute;
-        width: 100%;
-		top: 0;
-		bottom: 0;
-    }
 
 	.release_rating_container {
 		display: flex;
@@ -490,62 +260,10 @@
 		padding-left: 3px;
 	}
 
-	.streaming_platform {
-		display: flex;
-		flex-direction: column;
-		padding-bottom: 20px;
-	}
-
-	.streaming_details_container {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.stream_item {
-		padding-bottom: 5px;
-	}
-
-	.stream_unavailable {
-		width: 100%;
-	}
-
-	.streaming_unavailable_container {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		width: 100%;
-		max-width: 520px;
-	}
-
-	.renting_platform {
-		display: flex;
-		flex-direction: column;
-		padding-bottom: 20px;
-	}
-
-	.renting_details_container {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.find_out_more {
-		text-decoration: underline;
-		text-decoration-color: #20dce8;
-	}
-
-	.find_out_more:hover {
-		text-decoration: underline;
-		text-decoration-color: #fff;
-	}
-
-	.tmdb_providers_link a {
-		text-decoration: underline;
-		text-decoration-color: #20dce8;
-	}
-
-	.tmdb_providers_link a:hover {
-		text-decoration: underline;
-		text-decoration-color: #fff;
+	@media screen and (max-width: 767px) {
+		.release_rating_container {
+			align-self: center;
+		}
 	}
 
 	.details_container {

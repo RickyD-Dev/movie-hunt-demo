@@ -27,6 +27,7 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-auto-rows: 1fr;
+        justify-items: center;
         width: 100%;
         max-width: 800px;
         gap: 5px;
@@ -35,7 +36,6 @@
     @media screen and (min-width: 660px) and (orientation: landscape) {
         .genre_list {
             grid-template-columns: repeat(2, 1fr);
-            justify-items: center;
         }
     }
 
