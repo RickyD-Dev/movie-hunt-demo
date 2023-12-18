@@ -6,7 +6,7 @@ export const actions = {
         const data = await request.formData();
         const userQuery = data.get('search');
 
-        throw redirect(302, `/es/buscar/${userQuery}&p%C3%A1gina=1`);
+        throw redirect(302, `/es/buscar=/${userQuery}&p%C3%A1gina=1`);
     }
 }
 
@@ -21,15 +21,6 @@ export async function load({ params, fetch }) {
         const searchData = await searchFetch.json();
 
         const fetchedSearch = searchData.results;
-
-        // const filteredFetchedSearch = (arr) => {
-        //     const required = arr.filter(el => {
-        //         return el.poster_path;
-        //     });
-        //     return required;
-        // };
-
-        // const newSearch = filteredFetchedSearch(fetchedSearch);
 
         const searchCurrentPage = searchData.page.toString();
         const searchAllPages = searchData.total_pages.toString();
@@ -60,7 +51,7 @@ export async function load({ params, fetch }) {
         resultsToDisplay = rangeOfPages.slice(currentPageIndex, upperPageIndex);
 
         if (searchData.total_pages < 5 && (currentPageIndex + 1) <= (pageEnd)) {
-            resultsToDisplay = rangeOfPages.slice((pageEnd - 6), upperPageIndex);
+            resultsToDisplay = rangeOfPages.slice((pageEnd - 8), upperPageIndex);
         } else if (searchData.total_pages >= 5 && currentPageIndex > (pageEnd - 5)) {
             resultsToDisplay = rangeOfPages.slice((pageEnd - 5), upperPageIndex);
         };

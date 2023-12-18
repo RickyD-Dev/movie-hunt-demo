@@ -6,7 +6,7 @@ export const actions = {
         const data = await request.formData();
         const userQuery = data.get('search');
 
-        throw redirect(302, `/search/${userQuery}&page=1`);
+        throw redirect(302, `/search=/${userQuery}&page=1`);
     }
 }
 

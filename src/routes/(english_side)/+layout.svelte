@@ -26,18 +26,18 @@
         setTimeout(() => {
             if ($page.url.pathname === "/") {
                 goto("/es");
-            } else if ($page.url.pathname === "/genre") {
-                goto("/es/g%C3%A9nero");
-            } else if ($page.url.pathname === `/genre/${genreChosen}&page=${genreChosenPage}`) {
-                goto(`/es/g%C3%A9nero/${genreChosen}&p%C3%A1gina=${genreChosenPage}`);
-            } else if ($page.url.pathname === `/genre/${genreChosen}&page=${genreChosenPage}/details/${movieNum}`) {
-                goto(`/es/g%C3%A9nero/${genreChosen}&p%C3%A1gina=${genreChosenPage}/detalles/${movieNum}`);
-            } else if ($page.url.pathname === "/search") {
-                goto("/es/buscar");
-            } else if ($page.url.pathname === `/search/${titleSearched}&page=${searchPage}`) {
-                goto(`/es/buscar/${titleSearched}&p%C3%A1gina=${searchPage}`);
-            } else if ($page.url.pathname === `/search/${titleSearched}&page=${searchPage}/details/${movieNum}`) {
-                goto(`/es/buscar/${titleSearched}&p%C3%A1gina=${searchPage}/detalles/${movieNum}`);
+            } else if ($page.url.pathname === "/genre=") {
+                goto("/es/g%C3%A9nero=");
+            } else if ($page.url.pathname === `/genre=/${genreChosen}&page=${genreChosenPage}`) {
+                goto(`/es/g%C3%A9nero=/${genreChosen}&p%C3%A1gina=${genreChosenPage}`);
+            } else if ($page.url.pathname === `/genre=/${genreChosen}&page=${genreChosenPage}/details/${movieNum}`) {
+                goto(`/es/g%C3%A9nero=/${genreChosen}&p%C3%A1gina=${genreChosenPage}/detalles/${movieNum}`);
+            } else if ($page.url.pathname === "/search=") {
+                goto("/es/buscar=");
+            } else if ($page.url.pathname === `/search=/${titleSearched}&page=${searchPage}`) {
+                goto(`/es/buscar=/${titleSearched}&p%C3%A1gina=${searchPage}`);
+            } else if ($page.url.pathname === `/search=/${titleSearched}&page=${searchPage}/details/${movieNum}`) {
+                goto(`/es/buscar=/${titleSearched}&p%C3%A1gina=${searchPage}/detalles/${movieNum}`);
             }
         }, 300);
     };
@@ -55,16 +55,16 @@
             </div>
         </div>
 
-        <div class={$page.url.pathname.includes("/genre") || $page.url.pathname.includes("/search") ? "nav-header-container" : "nav-off"}>
+        <div class={$page.url.pathname.includes("/genre=") || $page.url.pathname.includes("/search=") ? "nav-header-container" : "nav-off"}>
             <div class="nav-container">
                 <nav>
                     <ul class="nav-list">
-                        {#if $page.url.pathname.includes("/genre")}
-                            <li lang="en-US" class="nav-item genres selected"><a href="/genre">Genres</a></li>
-                            <li lang="en-US" class="nav-item search"><a href="/search">Search</a></li>
-                        {:else if $page.url.pathname.includes("/search")}
-                            <li lang="en-US" class="nav-item genres"><a href="/genre">Genres</a></li>
-                            <li lang="en-US" class="nav-item search selected"><a href="/search">Search</a></li>
+                        {#if $page.url.pathname.includes("/genre=")}
+                            <li lang="en-US" class="nav-item genres selected"><a href="/genre=">Genres</a></li>
+                            <li lang="en-US" class="nav-item search"><a href="/search=">Search</a></li>
+                        {:else if $page.url.pathname.includes("/search=")}
+                            <li lang="en-US" class="nav-item genres"><a href="/genre=">Genres</a></li>
+                            <li lang="en-US" class="nav-item search selected"><a href="/search=">Search</a></li>
                         {/if}
                     </ul>
                 </nav>

@@ -8,7 +8,7 @@
     <ul class="genre_list">
         {#each movieGenres as movieGenre}
             <li class="genre-item" in:fly="{{ y:100, duration: 1000 }}">
-                <a lang="es-MX" href={`/es/g%C3%A9nero/${movieGenre.id}&p%C3%A1gina=1`}>{movieGenre.name}</a>
+                <a href={`/genre=/${movieGenre.id}&page=1`}>{movieGenre.name}</a>
             </li>
         {/each}
     </ul>
@@ -27,6 +27,7 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-auto-rows: 1fr;
+        justify-items: center;
         width: 100%;
         max-width: 800px;
         gap: 5px;
@@ -35,7 +36,6 @@
     @media screen and (min-width: 660px) and (orientation: landscape) {
         .genre_list {
             grid-template-columns: repeat(2, 1fr);
-            justify-items: center;
         }
     }
 

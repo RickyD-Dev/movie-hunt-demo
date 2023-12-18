@@ -8,7 +8,7 @@
     <ul class="genre_list">
         {#each movieGenres as movieGenre}
             <li class="genre-item" in:fly="{{ y:100, duration: 1000 }}">
-                <a href={`/genre/${movieGenre.id}&page=1`}>{movieGenre.name}</a>
+                <a lang="es-MX" href={`/es/g%C3%A9nero=/${movieGenre.id}&p%C3%A1gina=1`}>{movieGenre.name}</a>
             </li>
         {/each}
     </ul>

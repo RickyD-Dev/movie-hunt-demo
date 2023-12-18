@@ -1,5 +1,6 @@
 <script>
     import { fly } from "svelte/transition";
+    import Pagination from "../../../../lib/Pagination.svelte";
     export let data;
     
     $: ({ userSearchData, route, theCurrentPage, allPages, currentSearch, resultsToDisplay, finalPage } = data);
@@ -23,7 +24,7 @@
         <ul class="movies_list" in:fly="{{ y:100, duration: 1000 }}">
             {#each userSearchData as entry}
                 <li class="movie_posters">
-                    <a href={`/search/${route}&page=${theCurrentPage}/details/${entry.id}`}>
+                    <a href={`/search=/${route}&page=${theCurrentPage}/details/${entry.id}`}>
                         {#if entry.poster_path === null}
                             <div class="image_unavailable_container">
                                 <p><em>Image Unavailable</em></p>
@@ -38,53 +39,7 @@
         </ul>
     {/key}
 
-    <div class="pages_list">
-        <p>Page {theCurrentPage} out of {finalPage}</p>
-    </div>
-
-    <div class="pagination_container">
-        <ul class="pagination_list">
-            <li>
-                {#if activePage === 1}
-                    <a class="inactive" href={`/search/${currentSearch}&page=1`}>First</a>
-                {:else}
-                    <a class="page_item" href={`/search/${currentSearch}&page=1`}>First</a>
-                {/if}
-            </li>
-            <li>
-                {#if activePage === 1}
-                    <a class="inactive" href={`/search/${currentSearch}&page=1`}>&#60;</a>
-                {:else if activePage > 1}
-                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage-1}`}>&#60;</a>
-                {/if}
-            </li>
-            {#each resultsToDisplay as page}
-                {#if page === activePage}
-                    <li>
-                        <a class="active" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
-                    </li>
-                {:else}
-                    <li>
-                        <a class="page_item" href={`/search/${currentSearch}&page=${page}`}>{page}</a>
-                    </li>
-                {/if}
-            {/each}
-            <li>
-                {#if activePage === finalPage}
-                    <a class="inactive" href={`/search/${currentSearch}&page=${activePage}`}>&gt;</a>
-                {:else if activePage < allPages}
-                    <a class="page_item" href={`/search/${currentSearch}&page=${activePage+1}`}>&gt;</a>
-                {/if}
-            </li>
-            <li>
-                {#if activePage === finalPage}
-                    <a class="inactive" href={`/search/${currentSearch}&page=${finalPage}`}>Last</a>
-                {:else}
-                    <a class="page_item" href={`/search/${currentSearch}&page=${finalPage}`}>Last</a>
-                {/if}
-            </li>
-        </ul>
-    </div>
+    <Pagination all_pages={allPages} the_current_page={theCurrentPage} active_page={activePage} results_to_display={resultsToDisplay} final_page={finalPage} current_search={currentSearch} />
 </div>
 
 <style>
@@ -157,7 +112,6 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        padding-bottom: 2.5rem;
     }
 
     .movies_list {
@@ -208,52 +162,5 @@
 
     .image_unavailable_container p {
         padding-bottom: 10px;
-    }
-
-    .pages_list {
-        padding: 20px 0px 0px;
-    }
-
-    .pagination_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        max-width: 520px;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
-
-    .pagination_list {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 7px;
-    }
-
-    .page_item {
-        display: flex;
-        justify-content: center;
-        padding: 5px;
-        width: 100%;
-        cursor: pointer;
-    }
-
-    .page_item:hover {
-        background-color: rgba(44, 191, 201, 0.3);
-    }
-
-    .active {
-        display: flex;
-        justify-content: center;
-        padding: 5px;
-        width: 100%;
-        background-color: #2cbfc9;
-        cursor: pointer;
-        color: #000;
-    }
-
-    .inactive {
-        display: none;
     }
 </style>

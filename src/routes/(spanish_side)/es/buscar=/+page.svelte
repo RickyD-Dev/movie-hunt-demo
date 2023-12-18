@@ -1,6 +1,9 @@
 <div class="search_bar_container">
     <form method="POST" action="?/search" autocomplete="off">
         <input type="text" name="search" id="search" class="search_input" placeholder="Buscar Títulos" required>
+        <button class="search_button" type="submit">
+            <i class="search_icon fa-solid fa-magnifying-glass"></i>
+        </button>
     </form>
 </div>
 
@@ -18,6 +21,9 @@
 
     form {
         border-bottom: 1px solid #2cbfc9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         height: 50px;
     }
@@ -39,5 +45,23 @@
     .search_input:focus-visible {
         outline: none;
         caret-color: #fff;
+    }
+
+    .search_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: 4px;
+        background-color: transparent;
+        border: none;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    .search_icon {
+        color: #fff;
+        font-size: 1.15rem;
     }
 </style>

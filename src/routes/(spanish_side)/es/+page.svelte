@@ -3,7 +3,7 @@
         <h1 lang="es-MX" class="home_title">Descubre dónde puedes ver tus películas favoritas.</h1>
         
         <div class="explore_button_container">
-            <a lang="es-MX" class="explore_link" href="/es/género"><span>Comenzar</span></a>
+            <a lang="es-MX" class="explore_link" href="/es/género="><span>Comenzar</span></a>
         </div>
     </div>
 </div>

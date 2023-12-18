@@ -3,7 +3,7 @@
 		<h1 lang="en-US" class="home_title">Find out where your favorite movies are streaming.</h1>
 
 		<div class="explore_button_container">
-			<a lang="en-US" class="explore_link" href="/genre"><span>Explore</span></a>
+			<a lang="en-US" class="explore_link" href="/genre="><span>Explore</span></a>
 		</div>
 	</div>
 </div>
