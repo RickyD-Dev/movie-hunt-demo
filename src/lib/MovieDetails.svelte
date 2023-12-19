@@ -155,6 +155,14 @@
 		flex-direction: column;
 		justify-content: center;
 		width: 100%;
+		position: relative;
+		bottom: 8px;
+	}
+
+	@media screen and (max-width: 767px) {
+		.movie_details_wrapper {
+			bottom: initial;
+		}
 	}
 
 	.title_container {
