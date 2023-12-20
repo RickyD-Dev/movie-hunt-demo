@@ -33,6 +33,7 @@
 
 <style>
     .movie_trailer {
+		border: 1px solid #20dce8;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -40,7 +41,7 @@
 		cursor: pointer;
 		position: relative;
 		width: 100%;
-		height: 300px;
+		height: 292px;
 		max-width: 520px;
 		margin-bottom: 25px;
 		overflow: hidden;
@@ -48,7 +49,7 @@
 
 	@media screen and (max-width: 500px) {
 		.movie_trailer {
-			height: 200px;
+			height: 193px;
 		}
 	}
 
