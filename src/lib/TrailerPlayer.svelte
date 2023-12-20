@@ -41,7 +41,7 @@
 		cursor: pointer;
 		position: relative;
 		width: 100%;
-		height: 292px;
+		height: 300px;
 		max-width: 520px;
 		margin-bottom: 25px;
 		overflow: hidden;
@@ -49,7 +49,7 @@
 
 	@media screen and (max-width: 500px) {
 		.movie_trailer {
-			height: 193px;
+			height: 200px;
 		}
 	}
 
