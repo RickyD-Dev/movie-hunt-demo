@@ -32,10 +32,6 @@
 	} else {
 		newReleaseDateFormat = 'Unavailable';
 	}
-
-	function returnToList () {
-		history.back();
-	};
 </script>
 
 <div
