@@ -185,23 +185,6 @@
         text-align: center;
     }
 
-    /* @keyframes pulsate {
-        100% {
-            text-shadow:
-            0 0 4px rgba(44, 163, 176, 0.9),
-            0 0 11px rgba(44, 163, 176, 0.9),
-            0 0 19px rgba(44, 163, 176, 0.9),
-            0 0 40px #2cbfc9;
-        }
-        0% {
-            text-shadow:
-            0 0 4px rgba(44, 163, 176,0.9),
-            0 0 10px rgba(44, 163, 176,0.9),
-            0 0 18px rgba(44, 163, 176,0.9),
-            0 0 38px #2cbfc9;
-        }
-    } */
-
     .logo-text {
         color: rgba(255, 255, 255, 0.8);
         font-family: 'Yellowtail', cursive;
@@ -212,7 +195,6 @@
             0 0 11px rgba(44, 163, 176, 0.9),
             0 0 19px rgba(44, 163, 176, 0.9),
             0 0 40px #2cbfc9;
-        /* animation: pulsate 0.5s ease-in-out infinite alternate; */
     }
 
     /* ---------- Genre/Search Header Styles ---------- */
@@ -245,7 +227,7 @@
         flex-direction: row;
         justify-content: space-evenly;
         width: 100%;
-
+        gap: 40px;
     }
 
     .nav-item {

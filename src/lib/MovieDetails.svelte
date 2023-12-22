@@ -2,6 +2,8 @@
 	import { page } from '$app/stores';
 	import TrailerPlayer from './TrailerPlayer.svelte';
 	import StreamingDetails from './StreamingDetails.svelte';
+	import ReturnButton from './ReturnButton.svelte';
+	import SpanishReturnButton from './SpanishReturnButton.svelte';
 
 	export let movieDetails;
 	export let providerDetails;
@@ -30,6 +32,10 @@
 	} else {
 		newReleaseDateFormat = 'Unavailable';
 	}
+
+	function returnToList () {
+		history.back();
+	};
 </script>
 
 <div
@@ -49,6 +55,11 @@
 			</div>
 		{:else}
 			<div class="details_poster_container">
+				{#if $page.url.pathname.includes('/es')}
+					<SpanishReturnButton />
+				{:else}
+					<ReturnButton />
+				{/if}
 				<img src="http://image.tmdb.org/t/p/w500/{movieDetails.poster_path}" alt="" />
 			</div>
 		{/if}
@@ -156,12 +167,12 @@
 		justify-content: center;
 		width: 100%;
 		position: relative;
-		bottom: 8px;
+		top: 33px;
 	}
 
 	@media screen and (max-width: 767px) {
 		.movie_details_wrapper {
-			bottom: initial;
+			top: initial;
 		}
 	}
 
@@ -204,6 +215,14 @@
 	.details_poster_container {
 		width: 100%;
 		max-width: 300px;
+	}
+
+	@media screen and (max-width: 767px) {
+		.details_poster_container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
 	}
 
 	.details_poster_container img {
