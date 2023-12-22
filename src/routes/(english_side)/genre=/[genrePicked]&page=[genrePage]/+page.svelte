@@ -10,7 +10,7 @@
 
 <div data-sveltekit-preload-data="touch" class="genre_movies_container">
     {#key genreOfChoice}
-        <ul class="genre_movies_list" in:fly="{{ y:100, duration: 1000 }}">
+        <ul class="genre_movies_list" in:fly|global="{{ y:100, duration: 1000 }}">
             {#each genreOfChoice as movie}
                 <li id={movie.id} class="movie_posters">
                     <a href={`/genre=/${genreName}&page=1/details/${movie.id}`}>

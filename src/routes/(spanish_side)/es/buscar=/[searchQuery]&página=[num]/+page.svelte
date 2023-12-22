@@ -22,7 +22,7 @@
 
 <div data-sveltekit-preload-data="touch" class="movies_container">
     {#key userSearchData}
-        <ul class="movies_list" in:fly="{{ y:100, duration: 1000 }}">
+        <ul class="movies_list" in:fly|global="{{ y:100, duration: 1000 }}">
             {#each userSearchData as entry}
                 <li class="movie_posters">
                     <a href={`/es/buscar=/${route}&p%C3%A1gina=${theCurrentPage}/detalles/${entry.id}`}>

@@ -1,5 +1,9 @@
+<script>
+	import { fly } from "svelte/transition";
+</script>
+
 <div class="wrapper">
-	<div class="home_main_container">
+	<div class="home_main_container" in:fly|global="{{ y:100, duration: 1000 }}">
 		<h1 lang="en-US" class="home_title">Find out where your favorite movies are streaming.</h1>
 
 		<div class="explore_button_container">

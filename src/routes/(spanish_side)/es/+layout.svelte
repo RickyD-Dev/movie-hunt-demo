@@ -242,7 +242,7 @@
         flex-direction: row;
         justify-content: space-evenly;
         width: 100%;
-
+        gap: 40px;
     }
 
     .nav-item {
