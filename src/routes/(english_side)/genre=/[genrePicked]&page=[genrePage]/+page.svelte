@@ -17,10 +17,9 @@
                         {#if movie.poster_path === null}
                             <div class="image_unavailable_container">
                                 <p><em>Image Unavailable</em></p>
-                                <p>{movie.title}</p>
                             </div>
                         {:else}
-                            <img class="movie_poster_image" src="http://image.tmdb.org/t/p/w500/{movie.poster_path}" alt="{movie.title} movie poster">
+                            <img class="movie_poster_image" loading="lazy" src="http://image.tmdb.org/t/p/w500/{movie.poster_path}" alt="{movie.title} movie poster">
                         {/if}
                     </a>
                 </li>
