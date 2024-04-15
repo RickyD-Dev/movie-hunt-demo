@@ -48,7 +48,9 @@
         transition: all 150ms ease-in-out;
     }
 
-    .genre-item a:hover {
-        color: #2cbfc9;
+    @media screen and (min-width: 811px) {
+        .genre-item a:hover {
+            color: #2cbfc9;
+        }
     }
 </style>

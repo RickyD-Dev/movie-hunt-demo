@@ -65,8 +65,10 @@
         transition: background-color 150ms ease-in-out;
     }
 
-    .explore_link:hover {
-        background-color: rgba(44, 191, 201, 0.2);
+    @media screen and (min-width: 811px) {
+        .explore_link:hover {
+            background-color: rgba(44, 191, 201, 0.2);
+        }
     }
 
     .explore_link span {
