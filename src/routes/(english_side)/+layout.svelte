@@ -239,17 +239,19 @@
         transition: all 150ms ease-in-out;
     }
 
-    .nav-item a:hover {
-        color: #2cbfc9;
-    }
-
     .selected a {
         text-decoration: underline;
         text-decoration-color: #2cbfc9;
     }
 
-    .selected a:hover {
-        text-decoration-color: #fff;
+    @media screen and (min-width: 811px) {
+        .nav-item a:hover {
+            color: #2cbfc9;
+        }
+
+        .selected a:hover {
+            text-decoration-color: #fff;
+        }
     }
 
     /* ---------- Footer Styles ---------- */
